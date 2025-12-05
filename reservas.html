@@ -1,0 +1,887 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Fraganza — Mis Reservas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Playfair+Display:wght@400;700&display=swap"
+        rel="stylesheet">
+    <meta name="description" content="Mis reservas en Fraganza - Completa tus datos para finalizar la reserva." />
+    <style>
+        :root {
+            --green-dark: #042f26;
+            --green-mid: #0b6a55;
+            --white: #ffffff;
+            --muted: #eef6f3;
+            --accent: rgba(4, 47, 38, 0.06);
+            --radius: 18px;
+            --shadow: 0 20px 60px rgba(4, 47, 38, 0.12);
+            --maxw: 1200px;
+            --transition: 360ms cubic-bezier(.2, .9, .25, 1);
+            --nav-height: 76px;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            margin: 0;
+            font-family: Montserrat, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background: linear-gradient(180deg, var(--muted), var(--white));
+            color: var(--green-dark);
+            line-height: 1.45;
+            font-size: 15px
+        }
+
+        .wrap {
+            max-width: var(--maxw);
+            margin: 18px auto;
+            padding: 18px
+        }
+
+        .navbar-wrap {
+            position: sticky;
+            top: 12px;
+            z-index: 60
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 12px 18px;
+            border-radius: 16px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), var(--white));
+            box-shadow: 0 20px 60px rgba(4, 47, 38, 0.06);
+            height: var(--nav-height)
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .logo {
+            width: 64px;
+            height: 64px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+            display: grid;
+            place-items: center;
+            color: var(--white);
+            font-family: 'Playfair Display';
+            font-size: 22px;
+            font-weight: 700;
+            box-shadow: 0 8px 30px rgba(4, 47, 38, 0.18)
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-size: 18px
+        }
+
+        .brand p {
+            margin: 0;
+            font-size: 12px;
+            color: #1f5146
+        }
+
+        .nav-center {
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 10px 14px;
+            border-radius: 10px;
+            color: var(--green-dark);
+            text-decoration: none;
+            font-weight: 700;
+            cursor: pointer
+        }
+
+        .nav-link:hover {
+            background: var(--accent);
+            transform: translateY(-4px)
+        }
+
+        .nav-cta {
+            background: var(--green-dark);
+            color: var(--white);
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-weight: 800
+        }
+
+        .nav-reserva {
+            background: var(--green-dark);
+            color: var(--white);
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-weight: 800
+        }
+
+        .mobile-toggle {
+            display: none
+        }
+
+        .hero {
+            margin-top: 18px;
+            padding: 22px;
+            border-radius: 12px;
+            background: linear-gradient(180deg, var(--white), var(--white));
+            box-shadow: 0 8px 30px rgba(4, 47, 38, 0.04);
+        }
+
+        .eyebrow {
+            font-weight: 800;
+            color: var(--green-mid);
+            letter-spacing: 0.6px
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display';
+            margin: 0 0 8px;
+            font-size: 32px;
+            color: var(--green-dark)
+        }
+
+        .hero p {
+            margin: 0;
+            color: #1e5346
+        }
+
+        .reserva-layout {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .productos-section {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 30px rgba(4, 47, 38, 0.04);
+        }
+
+        .productos-section h3 {
+            margin: 0 0 16px;
+            color: var(--green-dark);
+            font-family: 'Playfair Display';
+        }
+
+        .producto-item {
+            display: flex;
+            gap: 16px;
+            padding: 16px;
+            border-bottom: 1px solid rgba(4, 47, 38, 0.06);
+            align-items: center;
+        }
+
+        .producto-item:last-child {
+            border-bottom: none;
+        }
+
+        .producto-imagen {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 800;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .producto-imagen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .producto-info {
+            flex: 1;
+        }
+
+        .producto-info h4 {
+            margin: 0 0 4px;
+            color: var(--green-dark);
+        }
+
+        .producto-info p {
+            margin: 0;
+            color: #225241;
+            font-size: 14px;
+        }
+
+        .producto-precio {
+            font-weight: 800;
+            color: var(--green-dark);
+            font-size: 16px;
+        }
+
+        .producto-cantidad {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .cantidad-btn {
+            background: var(--accent);
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: 800;
+        }
+
+        .cantidad-text {
+            font-weight: 600;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .eliminar-btn {
+            background: none;
+            border: none;
+            color: #dc2626;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 12px;
+        }
+
+        .eliminar-btn:hover {
+            background: rgba(220, 38, 38, 0.1);
+        }
+
+        .datos-section {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 30px rgba(4, 47, 38, 0.04);
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .datos-section h3 {
+            margin: 0 0 16px;
+            color: var(--green-dark);
+            font-family: 'Playfair Display';
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--green-dark);
+            font-size: 14px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(4, 47, 38, 0.1);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--green-mid);
+            box-shadow: 0 0 0 3px rgba(11, 106, 85, 0.1);
+        }
+
+        .resumen {
+            background: rgba(4, 47, 38, 0.05);
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 20px;
+            border: 1px solid rgba(4, 47, 38, 0.1);
+        }
+
+        .resumen-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .resumen-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(4, 47, 38, 0.2);
+            font-weight: 800;
+            font-size: 16px;
+        }
+
+        .btn-reservar {
+            background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+            color: var(--white);
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .btn-reservar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(4, 47, 38, 0.3);
+        }
+
+        .btn-reservar:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .estado-vacio {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .estado-vacio h3 {
+            margin: 0 0 8px;
+            color: var(--green-dark);
+        }
+
+        .btn-seguir-comprando {
+            background: var(--green-dark);
+            color: var(--white);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 16px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .offcanvas {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            display: none;
+            z-index: 90;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .offcanvas-content {
+            width: 320px;
+            height: 100%;
+            background: var(--white);
+            padding: 24px;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            box-shadow: 0 0 40px rgba(4, 47, 38, 0.1);
+        }
+
+        .offcanvas.show .offcanvas-content {
+            transform: translateX(0);
+        }
+
+        .offcanvas-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--accent);
+        }
+
+        .offcanvas-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--green-dark);
+            margin: 0;
+        }
+
+        .offcanvas-close {
+            background: var(--accent);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            color: var(--green-dark);
+            transition: var(--transition);
+        }
+
+        .offcanvas-close:hover {
+            background: rgba(4, 47, 38, 0.1);
+            transform: scale(1.1);
+        }
+
+        .offcanvas-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .offcanvas-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            border-radius: 10px;
+            color: var(--green-dark);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .offcanvas-link:hover {
+            background: var(--accent);
+            border-color: rgba(4, 47, 38, 0.1);
+            transform: translateX(4px);
+        }
+
+        .offcanvas-link.active {
+            background: var(--green-dark);
+            color: var(--white);
+        }
+
+        .offcanvas-footer {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid var(--accent);
+        }
+
+        footer {
+            margin-top: 28px;
+            border-radius: 12px;
+            padding: 28px;
+            background: linear-gradient(180deg, var(--green-dark), var(--green-mid));
+            color: var(--white);
+            box-shadow: 0 30px 80px rgba(4, 47, 38, 0.18)
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px
+        }
+
+        .footer a {
+            color: rgba(255, 255, 255, 0.95);
+            text-decoration: none
+        }
+
+        @media (max-width: 980px) {
+            .reserva-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .datos-section {
+                position: static;
+            }
+
+            .nav-center {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .producto-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .producto-cantidad {
+                justify-content: center;
+            }
+        }
+
+        .small {
+            font-size: 13px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+
+        <div class="navbar-wrap">
+            <div class="navbar">
+                <div style="display:flex;align-items:center;gap:12px">
+                    <button class="mobile-toggle icon-btn" aria-label="Abrir menú"
+                        onclick="toggleOffcanvas()">☰</button>
+                    <div class="brand">
+                        <img class="logo" src="IMG-20251110-WA0007.jpg" alt="">
+                        <div>
+                            <h1>Fraganza</h1>
+                            <p class="small">Perfumería selecta</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-center" role="navigation" aria-label="Navegación principal">
+                    <a class="nav-link" href="index.html">Inicio</a>
+                    <a class="nav-link" href="arabes.html">Perfumes Árabes</a>
+                    <a class="nav-link" href="disenador.html">Diseñador</a>
+                    <a class="nav-link" href="proximo.html">Próximamente</a>
+                    <a class="nav-link nav-reserva" href="reservas.html">Mis Reservas</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="offcanvas" id="offcanvas">
+            <div class="offcanvas-content">
+                <div class="offcanvas-header">
+                    <h3 class="offcanvas-title">Menú</h3>
+                    <button class="offcanvas-close" onclick="toggleOffcanvas()">✕</button>
+                </div>
+                <nav class="offcanvas-nav">
+                    <a href="index.html" class="offcanvas-link">🏠 Inicio</a>
+                    <a href="arabes.html" class="offcanvas-link">🌙 Perfumes Árabes</a>
+                    <a href="disenador.html" class="offcanvas-link">👔 Diseñador</a>
+                    <a href="proximo.html" class="offcanvas-link">🆕 Próximamente</a>
+                    <a href="reservas.html" class="offcanvas-link active">📋 Mis Reservas</a>
+                </nav>
+                <div class="offcanvas-footer">
+                    <div class="small" style="color: rgba(4, 47, 38, 0.6); text-align: center;">
+                        Fraganza © 2025<br>Perfumería selecta
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="hero">
+            <div class="eyebrow">Sistema de Reservas</div>
+            <h1>Mis Reservas</h1>
+            <p>Revisá tus productos seleccionados y completá tus datos para finalizar la reserva.</p>
+        </section>
+
+        <div class="reserva-layout">
+            <div class="productos-section">
+                <h3>Productos seleccionados</h3>
+                <div id="lista-productos">
+                </div>
+            </div>
+
+            <div class="datos-section">
+                <h3>Tus datos</h3>
+                <form id="formulario-reserva">
+                    <div class="form-group">
+                        <label for="nombre">Nombre completo *</label>
+                        <input type="text" id="nombre" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefono">Teléfono *</label>
+                        <input type="tel" id="telefono" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="direccion">Dirección de envío</label>
+                        <textarea id="direccion" class="form-control" rows="3"
+                            placeholder="Calle, número, ciudad, código postal..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="comentarios">Comentarios adicionales</label>
+                        <textarea id="comentarios" class="form-control" rows="3"
+                            placeholder="Algún comentario sobre tu reserva..."></textarea>
+                    </div>
+
+                    <div class="resumen">
+                        <div class="resumen-item">
+                            <span>Productos:</span>
+                            <span id="resumen-cantidad">0</span>
+                        </div>
+                        <div class="resumen-item">
+                            <span>Subtotal:</span>
+                            <span id="resumen-subtotal">$0</span>
+                        </div>
+                        <div class="resumen-total">
+                            <span>Total:</span>
+                            <span id="resumen-total">$0</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-reservar" id="btn-reservar" disabled>
+                        Finalizar Reserva
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-grid footer">
+                <div>
+                    <h4>Fraganza</h4>
+                    <p class="small" style="color:rgba(255,255,255,0.95)">Perfumería · Autenticidad y selección cuidada.
+                        Blanco & Verde Oscuro.</p>
+                    <div style="margin-top:10px">ventas@fraganza.example · +54 9 11 1234 5678</div>
+                </div>
+                <div>
+                    <h4>Tienda</h4>
+                    <a href="arabes.html">Perfumes Árabes</a>
+                    <a href="disenador.html">Perfumes de Diseñador</a>
+                    <a href="proximo.html">Próximamente</a>
+                    <a href="reservas.html">Reservas</a>
+                </div>
+                <div>
+                    <h4>Atención al cliente</h4>
+                    <a href="#">Envíos y devoluciones</a>
+                    <a href="#">Métodos de pago</a>
+                    <a href="#">Preguntas frecuentes</a>
+                    <a href="#">Contacto</a>
+                </div>
+                <div>
+                    <h4>Legal</h4>
+                    <a href="#">Términos & Condiciones</a>
+                    <a href="#">Política de privacidad</a>
+                    <a href="#">Política de envíos</a>
+                </div>
+            </div>
+
+            <div
+                style="margin-top:18px;border-top:1px solid rgba(255,255,255,0.06);padding-top:14px;display:flex;justify-content:space-between;align-items:center">
+                <div>© Fraganza 2025 · Todos los derechos reservados</div>
+                <div class="small" style="color:rgba(255,255,255,0.85)">Diseño: Fraganza · Pagos seguros</div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        let reservas = JSON.parse(localStorage.getItem('fraganza_reservas')) || [];
+
+        const el = s => document.querySelector(s);
+        const listaProductos = el('#lista-productos');
+        const formulario = el('#formulario-reserva');
+        const btnReservar = el('#btn-reservar');
+
+        function money(n) { return '$' + n.toLocaleString('es-AR'); }
+
+        function cargarReservas() {
+            if (reservas.length === 0) {
+                mostrarEstadoVacio();
+                actualizarResumen();
+                return;
+            }
+
+            listaProductos.innerHTML = '';
+
+            reservas.forEach(producto => {
+                const div = document.createElement('div');
+                div.className = 'producto-item';
+
+                const iniciales = producto.name.split(' ').map(w => w[0]).filter(char => char.match(/[A-Z]/)).slice(0, 2).join('') || 'PF';
+
+                div.innerHTML = `
+                    <div class="producto-imagen">
+                        ${producto.image ?
+                        `<img src="${producto.image}" alt="${producto.name}" onerror="this.style.display='none'; this.parentNode.innerHTML='${iniciales}'">` :
+                        iniciales
+                    }
+                    </div>
+                    <div class="producto-info">
+                        <h4>${producto.name}</h4>
+                        <p>${producto.desc || 'Descripción no disponible'}</p>
+                        <div class="producto-precio">${money(producto.price)}</div>
+                        <div class="producto-cantidad">
+                            <button class="cantidad-btn" onclick="cambiarCantidad('${producto.id}', -1)">-</button>
+                            <span class="cantidad-text">${producto.cantidad}</span>
+                            <button class="cantidad-btn" onclick="cambiarCantidad('${producto.id}', 1)">+</button>
+                        </div>
+                    </div>
+                    <button class="eliminar-btn" onclick="eliminarProducto('${producto.id}')">
+                        Eliminar
+                    </button>
+                `;
+
+                listaProductos.appendChild(div);
+            });
+
+            actualizarResumen();
+        }
+
+        function mostrarEstadoVacio() {
+            listaProductos.innerHTML = `
+                <div class="estado-vacio">
+                    <h3>No tenés productos reservados</h3>
+                    <p>Agregá productos desde nuestras colecciones para verlos aquí.</p>
+                    <a href="index.html" class="btn-seguir-comprando">Seguir comprando</a>
+                </div>
+            `;
+        }
+
+        function cambiarCantidad(productId, cambio) {
+            const producto = reservas.find(p => p.id === productId);
+            if (!producto) return;
+
+            producto.cantidad += cambio;
+
+            if (producto.cantidad <= 0) {
+                eliminarProducto(productId);
+            } else {
+                localStorage.setItem('fraganza_reservas', JSON.stringify(reservas));
+                cargarReservas();
+            }
+        }
+
+        function eliminarProducto(productId) {
+            reservas = reservas.filter(p => p.id !== productId);
+            localStorage.setItem('fraganza_reservas', JSON.stringify(reservas));
+            cargarReservas();
+        }
+
+        function actualizarResumen() {
+            const totalProductos = reservas.reduce((sum, p) => sum + p.cantidad, 0);
+            const subtotal = reservas.reduce((sum, p) => sum + (p.price * p.cantidad), 0);
+            const total = subtotal;
+
+            el('#resumen-cantidad').textContent = totalProductos;
+            el('#resumen-subtotal').textContent = money(subtotal);
+            el('#resumen-total').textContent = money(total);
+
+            btnReservar.disabled = reservas.length === 0;
+        }
+
+        formulario.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            if (reservas.length === 0) {
+                alert('No tenés productos para reservar.');
+                return;
+            }
+
+            const datos = {
+                nombre: el('#nombre').value,
+                telefono: el('#telefono').value,
+                email: el('#email').value,
+                direccion: el('#direccion').value,
+                comentarios: el('#comentarios').value,
+                productos: reservas,
+                fecha: new Date().toISOString(),
+                total: reservas.reduce((sum, p) => sum + (p.price * p.cantidad), 0)
+            };
+
+            const productosTexto = reservas.map(p =>
+                `• ${p.name} (${p.cantidad} unidad${p.cantidad > 1 ? 'es' : ''}) - ${money(p.price * p.cantidad)}`
+            ).join('%0A');
+
+            const mensaje = `¡Hola! Tengo una nueva reserva:%0A%0A*Datos del cliente:*%0ANombre: ${datos.nombre}%0ATeléfono: ${datos.telefono}%0AEmail: ${datos.email}%0A%0A*Productos reservados:*%0A${productosTexto}%0A%0A*Total: ${money(datos.total)}*%0A%0A${datos.direccion ? `*Dirección:*%0A${datos.direccion}%0A%0A` : ''}${datos.comentarios ? `*Comentarios:*%0A${datos.comentarios}` : ''}`;
+
+            const telefono = '5491112345678';
+            const url = `https://wa.me/${telefono}?text=${mensaje}`;
+
+            reservas = [];
+            localStorage.setItem('fraganza_reservas', JSON.stringify(reservas));
+
+            formulario.reset();
+
+            alert('¡Reserva enviada con éxito! Te contactaremos pronto.');
+            window.open(url, '_blank');
+            cargarReservas();
+        });
+
+        function toggleOffcanvas() {
+            const oc = el('#offcanvas');
+            if (oc.classList.contains('show')) {
+                oc.classList.remove('show');
+                setTimeout(() => {
+                    oc.style.display = 'none';
+                }, 300);
+            } else {
+                oc.style.display = 'block';
+                setTimeout(() => {
+                    oc.classList.add('show');
+                }, 10);
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const oc = el('#offcanvas');
+                if (oc.classList.contains('show')) {
+                    toggleOffcanvas();
+                }
+            }
+        });
+
+        el('#offcanvas').addEventListener('click', (e) => {
+            if (e.target === el('#offcanvas')) {
+                toggleOffcanvas();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            cargarReservas();
+        });
+    </script>
+</body>
+
+</html>

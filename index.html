@@ -1,0 +1,1817 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Fraganza — Inicio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Playfair+Display:wght@400;700&display=swap"
+        rel="stylesheet">
+    <meta name="description"
+        content="Fraganza — Perfumería: Árabes, Diseñador, Decants y nuevas colecciones. Blanco y verde oscuro." />
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <style>
+        :root {
+            --green-dark: #042f26;
+            --green-mid: #0b6a55;
+            --green-light: #0e8f70;
+            --white: #ffffff;
+            --muted: #eef6f3;
+            --accent: rgba(4, 47, 38, 0.06);
+            --radius: 16px;
+            --shadow: 0 14px 50px rgba(4, 47, 38, 0.12);
+            --maxw: 1200px;
+            --transition: 340ms cubic-bezier(.2, .9, .25, 1);
+            --nav-height: 76px;
+            --discount-green: #059669;
+            --discount-bg: rgba(5, 150, 105, 0.08);
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            margin: 0;
+            font-family: Montserrat, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background: linear-gradient(180deg, var(--muted), #ffffff);
+            color: var(--green-dark);
+            line-height: 1.45;
+            font-size: 15px
+        }
+
+        .container {
+            max-width: var(--maxw);
+            margin: 18px auto;
+            padding: 18px
+        }
+
+        .navbar-wrap {
+            position: sticky;
+            top: 12px;
+            z-index: 60
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 12px 18px;
+            border-radius: 16px;
+            background: linear-gradient(180deg, rgba(4, 47, 38, 0.02), #ffffff);
+            box-shadow: var(--shadow);
+            height: var(--nav-height)
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .logo {
+            width: 64px;
+            height: 64px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+            display: grid;
+            place-items: center;
+            color: var(--white);
+            font-family: 'Playfair Display';
+            font-size: 22px;
+            font-weight: 700;
+            box-shadow: 0 8px 30px rgba(4, 47, 38, 0.18)
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-size: 18px;
+            color: var(--green-dark)
+        }
+
+        .brand p {
+            margin: 0;
+            font-size: 12px;
+            color: #1f5146
+        }
+
+        .nav-center {
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 10px 14px;
+            border-radius: 10px;
+            color: var(--green-dark);
+            text-decoration: none;
+            font-weight: 700;
+            cursor: pointer
+        }
+
+        .nav-link:hover {
+            background: var(--accent);
+            transform: translateY(-4px)
+        }
+
+        .nav-cta {
+            background: var(--green-dark);
+            color: var(--white);
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-weight: 800
+        }
+
+        .nav-reserva {
+            background: var(--green-dark);
+            color: var(--white);
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-weight: 800
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .icon-btn {
+            background: transparent;
+            border: 0;
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--green-dark)
+        }
+
+        .mobile-toggle {
+            display: none
+        }
+
+        @media (max-width:980px) {
+            .nav-center {
+                display: none
+            }
+
+            .mobile-toggle {
+                display: block
+            }
+        }
+
+        .hero {
+            margin-top: 18px;
+            border-radius: 20px;
+            padding: 28px;
+            background: linear-gradient(180deg, rgba(4, 47, 38, 0.03), rgba(4, 47, 38, 0.01));
+            display: block
+        }
+
+        .hero .eyebrow {
+            color: var(--green-dark);
+            font-weight: 800;
+            letter-spacing: 0.6px
+        }
+
+        .hero h2 {
+            font-family: 'Playfair Display';
+            font-size: 40px;
+            margin: 10px 0;
+            color: var(--green-dark)
+        }
+
+        .hero p {
+            margin: 0 0 18px;
+            color: #27493f
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 12px
+        }
+
+        .collections {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-top: 22px
+        }
+
+        .collection {
+            background: linear-gradient(180deg, #f7fff8, #ffffff);
+            padding: 18px;
+            border-radius: 14px;
+            box-shadow: 0 10px 32px rgba(4, 47, 38, 0.04);
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid rgba(4, 47, 38, 0.04);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .collection:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 36px rgba(4, 47, 38, 0.08);
+        }
+
+        .collection h4 {
+            color: var(--green-dark);
+            margin: 0 0 8px;
+        }
+
+        .collection p {
+            margin: 0;
+            color: #225241;
+            font-size: 14px;
+        }
+
+        /* SECCIÓN DE DECANTS - ESTILO VERDE */
+        .decants-section {
+            margin-top: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display';
+            font-size: 28px;
+            color: var(--green-dark);
+            margin: 0;
+            position: relative;
+            padding-left: 16px;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(to bottom, var(--green-mid), var(--green-light));
+            border-radius: 2px;
+        }
+
+        .discount-ribbon {
+            background: linear-gradient(90deg, var(--green-dark), var(--green-mid));
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(4, 47, 38, 0.15);
+        }
+
+        .decants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        /* TARJETAS DE DECANTS COMPACTAS */
+        .decant-card {
+            background: linear-gradient(180deg, var(--white), #fbfffb);
+            border-radius: 14px;
+            border: 1px solid rgba(4, 47, 38, 0.08);
+            box-shadow: 0 6px 20px rgba(4, 47, 38, 0.06);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .decant-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 32px rgba(4, 47, 38, 0.12);
+            border-color: var(--green-mid);
+        }
+
+        /* BADGE DE DESCUENTO EN VERDE */
+        .discount-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 900;
+            font-size: 12px;
+            z-index: 2;
+            box-shadow: 0 4px 12px rgba(4, 47, 38, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            min-width: 70px;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .decant-image {
+            height: 120px;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .decant-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--green-dark), var(--green-mid));
+        }
+
+        .decant-image img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+            border-radius: 6px;
+        }
+
+        .decant-content {
+            padding: 14px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .decant-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--green-dark);
+            margin: 0 0 6px;
+            line-height: 1.3;
+            min-height: 38px;
+        }
+
+        .decant-ml {
+            display: inline-block;
+            background: var(--accent);
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--green-dark);
+            margin-bottom: 8px;
+            align-self: flex-start;
+        }
+
+        .decant-notes {
+            color: #225241;
+            font-size: 12px;
+            margin: 4px 0;
+            line-height: 1.4;
+            flex: 1;
+            opacity: 0.9;
+        }
+
+        /* PRECIO CON DESCUENTO EN VERDE */
+        .price-container {
+            margin: 8px 0;
+            padding: 8px;
+            background: var(--discount-bg);
+            border-radius: 8px;
+            border: 1px solid rgba(5, 150, 105, 0.1);
+        }
+
+        .original-price {
+            color: #666;
+            font-size: 12px;
+            text-decoration: line-through;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .discounted-price {
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--green-dark);
+            display: block;
+            line-height: 1.2;
+        }
+
+        .savings {
+            font-size: 11px;
+            color: var(--discount-green);
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
+        .decant-actions {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+            color: var(--white);
+            border: none;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 13px;
+            white-space: nowrap;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(4, 47, 38, 0.2);
+        }
+
+        /* BANNER DE DESCUENTOS EN VERDE */
+        .discount-banner {
+            background: linear-gradient(90deg,
+                    rgba(4, 47, 38, 0.08),
+                    rgba(11, 106, 85, 0.08));
+            border: 1px solid rgba(4, 47, 38, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 24px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .discount-banner::before {
+            content: '✨';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 20px;
+            animation: spin 4s linear infinite;
+        }
+
+        .discount-banner::after {
+            content: '✨';
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 20px;
+            animation: spin 4s linear infinite reverse;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .banner-text {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--green-dark);
+            margin: 0;
+        }
+
+        .banner-subtext {
+            font-size: 13px;
+            color: #225241;
+            margin: 4px 0 0;
+            opacity: 0.8;
+        }
+
+        /* MODAL PARA DECANTS */
+        .decant-modal-content {
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .decant-prices {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 16px 0;
+        }
+
+        .price-option {
+            background: var(--accent);
+            padding: 16px;
+            border-radius: 10px;
+            border: 1px solid rgba(4, 47, 38, 0.1);
+            text-align: center;
+        }
+
+        .price-option h4 {
+            margin: 0 0 8px;
+            color: var(--green-dark);
+            font-size: 14px;
+        }
+
+        .price-option .price {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--green-dark);
+            margin: 8px 0;
+        }
+
+        .price-option .original {
+            color: #666;
+            font-size: 12px;
+            text-decoration: line-through;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 18px;
+            margin-top: 18px
+        }
+
+        .card {
+            background: linear-gradient(180deg, var(--white), #fbfffb);
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(4, 47, 38, 0.03);
+            box-shadow: 0 8px 28px rgba(4, 47, 38, 0.04);
+            transition: var(--transition);
+            cursor: pointer
+        }
+
+        .card:hover {
+            transform: translateY(-8px)
+        }
+
+        .thumb {
+            height: 200px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 900;
+            font-size: 24px;
+            overflow: hidden;
+            padding: 10px;
+        }
+
+        .thumb img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .meta {
+            margin-top: 10px
+        }
+
+        .meta h3 {
+            margin: 0;
+            color: var(--green-dark)
+        }
+
+        .meta p {
+            margin: 6px 0 0;
+            color: #225241;
+            font-size: 14px
+        }
+
+        .price {
+            font-weight: 800;
+            color: var(--green-dark);
+            margin-top: 8px
+        }
+
+        .backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 15, 12, 0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 80
+        }
+
+        .modal {
+            background: var(--white);
+            width: min(860px, 94%);
+            border-radius: 12px;
+            padding: 24px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close {
+            background: transparent;
+            border: 0;
+            font-size: 18px;
+            cursor: pointer;
+            color: var(--green-dark)
+        }
+
+        #decant-modal-image {
+            width: 100%;
+            height: 320px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 900;
+            font-size: 28px;
+            overflow: hidden;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        #decant-modal-image img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        #m-art {
+            width: 100%;
+            height: 320px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 900;
+            font-size: 28px;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        #m-art img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .btn-reservar {
+            background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+            color: var(--white);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 16px;
+        }
+
+        .btn-reservar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(4, 47, 38, 0.3);
+        }
+
+        .btn-reservar-small {
+            background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+            color: var(--white);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        .btn-reservar-small:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(4, 47, 38, 0.2);
+        }
+
+        .testimonials {
+            margin-top: 22px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px
+        }
+
+        .testimonial {
+            background: linear-gradient(180deg, #ffffff, #f7fff8);
+            padding: 18px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(4, 47, 38, 0.04)
+        }
+
+        .offcanvas {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            display: none;
+            z-index: 90;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .offcanvas-content {
+            width: 320px;
+            height: 100%;
+            background: var(--white);
+            padding: 24px;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            box-shadow: 0 0 40px rgba(4, 47, 38, 0.1);
+        }
+
+        .offcanvas.show .offcanvas-content {
+            transform: translateX(0);
+        }
+
+        .offcanvas-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--accent);
+        }
+
+        .offcanvas-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--green-dark);
+            margin: 0;
+        }
+
+        .offcanvas-close {
+            background: var(--accent);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            color: var(--green-dark);
+            transition: var(--transition);
+        }
+
+        .offcanvas-close:hover {
+            background: rgba(4, 47, 38, 0.1);
+            transform: scale(1.1);
+        }
+
+        .offcanvas-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .offcanvas-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            border-radius: 10px;
+            color: var(--green-dark);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .offcanvas-link:hover {
+            background: var(--accent);
+            border-color: rgba(4, 47, 38, 0.1);
+            transform: translateX(4px);
+        }
+
+        .offcanvas-link.active {
+            background: var(--green-dark);
+            color: var(--white);
+        }
+
+        .offcanvas-footer {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid var(--accent);
+        }
+
+        .reserva-indicator {
+            position: relative;
+        }
+
+        .reserva-count {
+            background: var(--green-dark);
+            color: var(--white);
+            font-weight: 800;
+            padding: 4px 8px;
+            border-radius: 999px;
+            margin-left: 6px;
+            font-size: 12px;
+        }
+
+        footer {
+            margin-top: 28px;
+            border-radius: 12px;
+            padding: 28px;
+            background: linear-gradient(180deg, var(--green-dark), var(--green-mid));
+            color: var(--white);
+            box-shadow: 0 30px 80px rgba(4, 47, 38, 0.18)
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px
+        }
+
+        .footer a {
+            color: rgba(255, 255, 255, 0.95);
+            text-decoration: none
+        }
+
+        @media (max-width:980px) {
+            .collections {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .modal {
+                padding: 18px;
+            }
+
+            .decants-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+
+            .decant-prices {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+        }
+
+        @media (max-width:640px) {
+            .collections {
+                grid-template-columns: 1fr
+            }
+
+            .hero h2 {
+                font-size: 28px
+            }
+
+            .grid {
+                grid-template-columns: 1fr
+            }
+
+            .testimonials {
+                grid-template-columns: 1fr
+            }
+
+            .decants-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+
+            .modal {
+                width: 95%;
+                padding: 16px;
+            }
+        }
+
+        .small {
+            font-size: 13px
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+            }
+
+            to {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="navbar-wrap">
+            <div class="navbar">
+                <div style="display:flex;align-items:center;gap:12px">
+                    <button class="mobile-toggle icon-btn" aria-label="Abrir menú"
+                        onclick="toggleOffcanvas()">☰</button>
+                    <div class="brand">
+                        <img class="logo" src="IMG-20251110-WA0007.jpg" alt="">
+                        <div>
+                            <h1>Fraganza</h1>
+                            <p class="small">Perfumería selecta</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-center" role="navigation" aria-label="Navegación principal">
+                    <a class="nav-link" href="index.html">Inicio</a>
+                    <a class="nav-link" href="arabes.html">Perfumes Árabes</a>
+                    <a class="nav-link" href="disenador.html">Diseñador</a>
+                    <a class="nav-link" href="proximo.html">Próximamente</a>
+                    <a class="nav-link nav-reserva" href="reservas.html">Mis Reservas</a>
+                </div>
+
+                <div class="nav-right">
+                    <div class="reserva-indicator">
+                        <button class="icon-btn" aria-label="Ver reservas"
+                            onclick="window.location.href='reservas.html'">📋 <span class="reserva-count"
+                                id="reserva-count">0</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="offcanvas" id="offcanvas">
+            <div class="offcanvas-content">
+                <div class="offcanvas-header">
+                    <h3 class="offcanvas-title">Menú</h3>
+                    <button class="offcanvas-close" onclick="toggleOffcanvas()">✕</button>
+                </div>
+                <nav class="offcanvas-nav">
+                    <a href="index.html" class="offcanvas-link active">🏠 Inicio</a>
+                    <a href="arabes.html" class="offcanvas-link">🌙 Perfumes Árabes</a>
+                    <a href="disenador.html" class="offcanvas-link">👔 Diseñador</a>
+                    <a href="proximo.html" class="offcanvas-link">🆕 Próximamente</a>
+                    <a href="reservas.html" class="offcanvas-link">📋 Mis Reservas</a>
+                </nav>
+                <div class="offcanvas-footer">
+                    <div class="small" style="color: rgba(4, 47, 38, 0.6); text-align: center;">
+                        Fraganza © 2025<br>Perfumería selecta
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <main>
+            <section class="hero">
+                <div class="eyebrow">Colecciones destacadas</div>
+                <h2>Fraganza — aromas que cuentan historias</h2>
+                <p>Explorá aromas que evocan viajes, recuerdos y momentos. Desde la intensidad del oud hasta la frescura
+                    del jazmín, nuestra curaduría está pensada para quien busca identidad olfativa.</p>
+
+                <div class="hero-actions" style="margin-top:18px">
+                    <a class="nav-link" href="arabes.html">Explorar Árabes</a>
+                    <a class="nav-link" href="disenador.html">Ver Diseñador</a>
+                    <button class="nav-cta"
+                        onclick="document.getElementById('decants').scrollIntoView({behavior:'smooth'})">
+                        🎁 20% OFF en Decants
+                    </button>
+                </div>
+            </section>
+
+            <section style="margin-top:26px">
+                <h3 style="margin:0 0 12px;color:var(--green-dark)">Colecciones</h3>
+                <div class="collections">
+                    <a class="collection" href="arabes.html">
+                        <h4>Árabes</h4>
+                        <p>Riqueza de notas ambarinas y oud. Estelas que dejan huella.</p>
+                    </a>
+                    <a class="collection" href="disenador.html">
+                        <h4>Diseñador</h4>
+                        <p>Clásicos de casa, modernizados para cada ocasión.</p>
+                    </a>
+                    <a class="collection" href="#decants">
+                        <h4>Decants 20% OFF</h4>
+                        <p>Prueba las mejores fragancias con 20% de descuento.</p>
+                    </a>
+                    <a class="collection" href="proximo.html">
+                        <h4>Próximamente</h4>
+                        <p>Colaboraciones y lanzamientos exclusivos.</p>
+                    </a>
+                </div>
+            </section>
+
+            <!-- SECCIÓN DE DECANTS CON 20% OFF EN TODOS -->
+            <section id="decants" class="decants-section">
+                <div class="section-header">
+                    <h3 class="section-title">Decants Especiales</h3>
+                    <div class="discount-ribbon">
+                        ⚡ 20% OFF EN TODOS ⚡
+                    </div>
+                </div>
+
+                <div class="discount-banner">
+                    <p class="banner-text">🎉 ¡Promoción especial! Todos los decants con 20% de descuento</p>
+                    <p class="banner-subtext">Oferta válida por tiempo limitado • Stock disponible</p>
+                </div>
+
+                <!-- LOS DECANTS SE CARGAN DINÁMICAMENTE -->
+                <div class="decants-grid" id="decants-list">
+                    <!-- Los decants se cargarán aquí automáticamente -->
+                </div>
+            </section>
+
+            <section id="catalogo" style="margin-top:32px">
+                <h3 style="color:var(--green-dark)">Mas buscados</h3>
+                <p class="small" style="margin-top:6px;color:rgba(4,47,38,0.45)">Seleccioná una fragancia para ver más
+                    detalles.</p>
+                <div class="grid" id="catalog-grid" style="margin-top:12px"></div>
+            </section>
+
+            <section style="margin-top:26px">
+                <h3 style="color:var(--green-dark)">Lo que dicen nuestros clientes</h3>
+                <div class="testimonials">
+                    <div class="testimonial">
+                        <div style="display:flex;justify-content:space-between;align-items:center">
+                            <div>
+                                <div style="color:goldenrod">★★★★★</div><strong>María, Buenos Aires</strong>
+                            </div>
+                            <div class="small" style="color:rgba(4,47,38,0.45)">Hace 2 meses</div>
+                        </div>
+                        <p class="small" style="margin-top:10px;color:#164233">"La Rosa del Bazar tiene una estela única
+                            — me preguntaron todo el día qué perfume usaba."</p>
+                    </div>
+                    <div class="testimonial">
+                        <div style="display:flex;justify-content:space-between;align-items:center">
+                            <div>
+                                <div style="color:goldenrod">★★★★★</div><strong>Santiago, Córdoba</strong>
+                            </div>
+                            <div class="small" style="color:rgba(4,47,38,0.45)">Hace 1 mes</div>
+                        </div>
+                        <p class="small" style="margin-top:10px;color:#164233">"Envío rápido y embalaje impecable.
+                            Compraría otra vez sin dudas."</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- MODAL PARA DECANTS -->
+        <div class="backdrop" id="decant-backdrop">
+            <div class="modal" role="dialog" aria-modal="true" id="decant-modal">
+                <div class="decant-modal-content">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+                        <h3 id="decant-modal-name">Nombre del Decant</h3>
+                        <button class="close" onclick="closeDecantModal()">✕</button>
+                    </div>
+
+                    <div id="decant-modal-image" class="thumb" style="height:320px;margin-bottom:20px">
+                        <!-- Imagen se carga aquí -->
+                    </div>
+
+                    <div id="decant-modal-desc" style="color:#225241;margin-bottom:20px">
+                        <!-- Descripción se carga aquí -->
+                    </div>
+
+                    <div id="decant-modal-notes" style="margin-bottom:20px">
+                        <!-- Notas se cargan aquí -->
+                    </div>
+
+                    <div class="decant-prices" id="decant-prices-container">
+                        <!-- Precios de 5ml y 10ml se cargan aquí -->
+                    </div>
+
+                    <button class="btn-reservar" id="decant-reservar-btn" onclick="reservarDecantDesdeModal()">
+                        Reservar ahora
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL ORIGINAL (para productos normales) -->
+        <div class="backdrop" id="backdrop">
+            <div class="modal" role="dialog" aria-modal="true">
+                <div>
+                    <div style="display:flex;justify-content:space-between;align-items:center">
+                        <h3 id="m-name">Nombre</h3>
+                        <button class="close" onclick="closeModal()">✕</button>
+                    </div>
+                    <p id="m-desc" style="color:#225241"></p>
+                    <ul id="m-notes"></ul>
+                    <div style="margin-top:12px"><strong id="m-price" style="color:var(--green-dark)"></strong></div>
+                    <div style="margin-top:14px;display:flex;gap:8px">
+                        <button class="btn-reservar" onclick="reservarProducto()">Reservar ahora</button>
+                        <button class="nav-link" onclick="closeModal()">Cerrar</button>
+                    </div>
+                </div>
+                <div style="display:grid;place-items:center">
+                    <div id="m-art"></div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-grid footer">
+                <div>
+                    <h4>Fraganza</h4>
+                    <p class="small" style="color:rgba(255,255,255,0.95)">Perfumería · Autenticidad y selección cuidada.
+                        Blanco & Verde Oscuro.</p>
+                    <div style="margin-top:10px">ventas@fraganza.example · +54 9 11 1234 5678</div>
+                </div>
+                <div>
+                    <h4>Tienda</h4>
+                    <a href="arabes.html">Perfumes Árabes</a>
+                    <a href="disenador.html">Perfumes de Diseñador</a>
+                    <a href="#decants">Decants 20% OFF</a>
+                    <a href="proximo.html">Próximamente</a>
+                    <a href="#catalogo">Mas buscados</a>
+                </div>
+                <div>
+                    <h4>Atención al cliente</h4>
+                    <a href="#">Envíos y devoluciones</a>
+                    <a href="#">Métodos de pago</a>
+                    <a href="#">Preguntas frecuentes</a>
+                    <a href="#">Contacto</a>
+                </div>
+                <div>
+                    <h4>Legal</h4>
+                    <a href="#">Términos & Condiciones</a>
+                    <a href="#">Política de privacidad</a>
+                    <a href="#">Política de envíos</a>
+                </div>
+            </div>
+
+            <div
+                style="margin-top:18px;border-top:1px solid rgba(255,255,255,0.06);padding-top:14px;display:flex;justify-content:space-between;align-items:center">
+                <div>© Fraganza 2025 · Todos los derechos reservados</div>
+                <div class="small" style="color:rgba(255,255,255,0.85)">Diseño: Fraganza · Pagos seguros</div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "TU_API_KEY",
+            authDomain: "TU_PROYECTO.firebaseapp.com",
+            projectId: "TU_PROYECTO_ID",
+            storageBucket: "TU_PROYECTO.appspot.com",
+            messagingSenderId: "TU_SENDER_ID",
+            appId: "TU_APP_ID"
+        };
+
+        if (firebaseConfig.apiKey !== "TU_API_KEY") {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.apps.length ? firebase.firestore() : null;
+
+        const el = s => document.querySelector(s);
+        const els = s => Array.from(document.querySelectorAll(s));
+
+        function money(n) { return '$' + n.toLocaleString('es-AR'); }
+
+        // ============================================
+        // ARRAY DE DECANTS - TODOS CON 20% OFF, 2 TAMAÑOS E IMAGEN
+        // ============================================
+        const decantsData = [
+            {
+                id: 'decant-1',
+                name: "Le Beau Le Parfum - Jean Paul Gaultier",
+                price5ml: 20000,
+                price10ml: 35000,
+                discount: 20, // 20% OFF
+                notes: ["Ambarino", "Afrutado", "Especiado"],
+                desc: "Le Beau Le Parfum de Jean Paul Gaultier es una fragancia de la familia olfativa Oriental Amaderada para Hombres. Le Beau Le Parfum se lanzó en 2022. La Nariz detrás de esta fragrancia es Quentin Bisch. Las Notas de Salida son piña, iris, jengibre y ciprés; las Notas de Corazón son coco y notas amaderadas; las Notas de Fondo son haba tonka, sándalo, ámbar y ámbar gris",
+                image: "./Le Beau Le Parfum dec.jpg" // Agrega tu imagen aquí
+            },
+            {
+                id: 'decant-2',
+                name: "Sauvage Parfum - Dior",
+                price5ml: 35000,
+                price10ml: 60000,
+                discount: 20, // 20% OFF
+                notes: ["Ahumado", "Pino", "Cítrico"],
+                desc: "Sauvage Parfum de Dior es una fragancia de la familia olfativa Oriental Fougère para Hombres. Sauvage Parfum se lanzó en 2019. La Nariz detrás de esta fragrancia es François Demachy. Las Notas de Salida son bergamota, mandarina y elemí; la Nota de Corazón es sándalo; las Notas de Fondo son incienso de olíbano (franquincienso), haba tonka y vainilla.",
+                image: "./Sauvage Parfum - Dior dec.jpg"
+            },
+            {
+                id: 'decant-3',
+                name: "Tom Ford Oud Wood",
+                price5ml: 28000,
+                price10ml: 48000,
+                discount: 20, // 20% OFF
+                notes: ["Oud", "Amaderado", "Especiado"],
+                desc: "Oud Wood de Tom Ford es una fragancia lujosa que combina oud raro con notas amaderadas y especiadas. Sofisticación oriental en su máxima expresión.",
+                image: "./Valentino Coral Fantasy.avif"
+            },
+            {
+                id: 'decant-4',
+                name: "Bleu de Chanel",
+                price5ml: 18000,
+                price10ml: 32000,
+                discount: 20, // 20% OFF
+                notes: ["Cítrico", "Jengibre", "Amaderado"],
+                desc: "Bleu de Chanel reinterpreta la elegancia masculina con notas cítricas y especiadas. Un perfume versátil para cualquier ocasión.",
+                image: "bleu-de-chanel.jpg"
+            },
+            {
+                id: 'decant-5',
+                name: "Yves Saint Laurent Y",
+                price5ml: 19000,
+                price10ml: 34000,
+                discount: 20, // 20% OFF
+                notes: ["Afrutado", "Jengibre", "Amaderado"],
+                desc: "Y Eau de Parfum combina frescura cítrica con profundidad amaderada. Una fragancia moderna para el hombre contemporáneo.",
+                image: "ysl-y.jpg"
+            },
+            {
+                id: 'decant-6',
+                name: "Jean Paul Gaultier Le Male",
+                price5ml: 22000,
+                price10ml: 38000,
+                discount: 20, // 20% OFF
+                notes: ["Menta", "Lavanda", "Vainilla"],
+                desc: "Le Male es un ícono de los 90s que reinventa las notas clásicas masculinas con un toque moderno y seductor.",
+                image: "jpg-le-male.jpg"
+            },
+            {
+                id: 'decant-7',
+                name: "Armani Code",
+                price5ml: 16000,
+                price10ml: 28000,
+                discount: 20, // 20% OFF
+                notes: ["Cítrico", "Oliva", "Tabaco"],
+                desc: "Armani Code combina frescura mediterránea con calidez oriental. Elegante, sofisticado y atemporal.",
+                image: "armani-code.jpg"
+            },
+            {
+                id: 'decant-8',
+                name: "Paco Rabanne 1 Million",
+                price5ml: 21000,
+                price10ml: 37000,
+                discount: 20, // 20% OFF
+                notes: ["Cítrico", "Canela", "Cuero"],
+                desc: "1 Million es audaz, glamoroso y lujoso. Una fragancia que captura la esencia del éxito y la celebración.",
+                image: "1-million.jpg"
+            },
+            {
+                id: 'decant-9',
+                name: "Versace Eros",
+                price5ml: 17000,
+                price10ml: 30000,
+                discount: 20, // 20% OFF
+                notes: ["Menta", "Manzana", "Vainilla"],
+                desc: "Eros es una declaración de amor y belleza. Combina frescura vibrante con dulzura sensual.",
+                image: "versace-eros.jpg"
+            },
+            {
+                id: 'decant-10',
+                name: "Dolce & Gabbana The One",
+                price5ml: 24000,
+                price10ml: 42000,
+                discount: 20, // 20% OFF
+                notes: ["Jengibre", "Cardamomo", "Ámbar"],
+                desc: "The One es sofisticado y seductor, con notas especiadas y amaderadas que crean una presencia memorable.",
+                image: "dolce-the-one.jpg"
+            },
+            {
+                id: 'decant-11',
+                name: "Givenchy Gentleman",
+                price5ml: 19500,
+                price10ml: 35000,
+                discount: 20, // 20% OFF
+                notes: ["Peras", "Lavanda", "Patchouli"],
+                desc: "Gentleman Givenchy reinterpreta la elegancia clásica con un toque moderno y audaz.",
+                image: "givenchy-gentleman.jpg"
+            },
+            {
+                id: 'decant-12',
+                name: "Hermès Terre d'Hermès",
+                price5ml: 26500,
+                price10ml: 48000,
+                discount: 20, // 20% OFF
+                notes: ["Naranja", "Pimienta", "Vetiver"],
+                desc: "Terre d'Hermès captura la esencia de la tierra con notas minerales y cítricas. Sofisticado y terrenal.",
+                image: "hermes-terre.jpg"
+            }
+        ];
+
+        // Variables para manejar el decant actual
+        let currentDecant = null;
+
+        // ============================================
+        // FUNCIONES PARA CARGAR Y MOSTRAR DECANTS
+        // ============================================
+
+        function loadDecants() {
+            const decantsList = el('#decants-list');
+            if (!decantsList) return;
+
+            decantsList.innerHTML = '';
+
+            decantsData.forEach(decant => {
+                // Mostrar precio del de 10ml en la card
+                const discountedPrice10ml = decant.price10ml * (1 - decant.discount / 100);
+                const savings10ml = decant.price10ml - discountedPrice10ml;
+
+                const div = document.createElement('div');
+                div.className = 'decant-card';
+                div.setAttribute('data-id', decant.id);
+                div.addEventListener('click', () => openDecantModal(decant.id));
+
+                // Imagen o iniciales
+                let imageContent;
+                if (decant.image) {
+                    imageContent = `
+                        <img src="${decant.image}" alt="${decant.name}" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div style=\'color:#fff;font-weight:900;font-size:14px\'>${decant.name.split(' ').map(w => w[0]).filter(char => char.match(/[A-Z]/)).slice(0, 2).join('')}</div>'">
+                    `;
+                } else {
+                    imageContent = `
+                        <div style="color:#fff;font-weight:900;font-size:14px">
+                            ${decant.name.split(' ').map(w => w[0]).filter(char => char.match(/[A-Z]/)).slice(0, 2).join('')}
+                        </div>
+                    `;
+                }
+
+                div.innerHTML = `
+                    <div class="discount-badge">
+                        ⚡ ${decant.discount}% OFF
+                    </div>
+                    <div class="decant-image">
+                        ${imageContent}
+                    </div>
+                    <div class="decant-content">
+                        <h4 class="decant-name">${decant.name}</h4>
+                        <span class="decant-ml">10ML / 5ML</span>
+                        <div class="decant-notes">
+                            ${(decant.notes || []).join(' · ')}
+                        </div>
+                        <div class="price-container">
+                            <span class="original-price">${money(decant.price10ml)}</span>
+                            <span class="discounted-price">${money(Math.round(discountedPrice10ml))}</span>
+                            <div class="savings">Ahorras ${money(Math.round(savings10ml))}</div>
+                        </div>
+                        <div class="decant-actions">
+                            <button class="btn" onclick="event.stopPropagation(); addDecantToReservas('${decant.id}', '10ml')">
+                                Reservar 10ml
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                decantsList.appendChild(div);
+            });
+        }
+
+        function openDecantModal(decantId) {
+            const decant = decantsData.find(d => d.id === decantId);
+            if (!decant) return;
+
+            currentDecant = decant;
+
+            const discountedPrice5ml = decant.price5ml * (1 - decant.discount / 100);
+            const discountedPrice10ml = decant.price10ml * (1 - decant.discount / 100);
+            const savings5ml = decant.price5ml - discountedPrice5ml;
+            const savings10ml = decant.price10ml - discountedPrice10ml;
+
+            // Configurar modal
+            el('#decant-modal-name').textContent = decant.name;
+
+            // Imagen
+            const modalImage = el('#decant-modal-image');
+            if (decant.image) {
+                modalImage.innerHTML = `
+                    <img src="${decant.image}" alt="${decant.name}" 
+                         onerror="this.style.display='none'; this.parentNode.innerHTML='<div style=\\'color:#fff;font-weight:900;font-size:28px\\'>${decant.name.split(' ').map(w => w[0]).filter(char => char.match(/[A-Z]/)).slice(0, 2).join('')}</div>'">
+                `;
+                modalImage.style.background = 'none';
+                modalImage.style.padding = '20px';
+            } else {
+                modalImage.innerHTML = `
+                    <div style="color:#fff;font-weight:900;font-size:28px">
+                        ${decant.name.split(' ').map(w => w[0]).filter(char => char.match(/[A-Z]/)).slice(0, 2).join('')}
+                    </div>
+                `;
+                modalImage.style.background = 'linear-gradient(135deg, var(--green-dark), var(--green-mid))';
+                modalImage.style.padding = '20px';
+            }
+
+            // Descripción
+            el('#decant-modal-desc').textContent = decant.desc;
+
+            // Notas
+            const notesContainer = el('#decant-modal-notes');
+            notesContainer.innerHTML = '<strong>Notas principales:</strong><br>';
+            decant.notes.forEach(note => {
+                notesContainer.innerHTML += `<span style="display:inline-block;background:var(--accent);padding:4px 10px;margin:4px 4px 0 0;border-radius:12px;font-size:13px">${note}</span>`;
+            });
+
+            // Precios de ambos tamaños
+            const pricesContainer = el('#decant-prices-container');
+            pricesContainer.innerHTML = `
+                <div class="price-option">
+                    <h4>5ml</h4>
+                    <div class="original">${money(decant.price5ml)}</div>
+                    <div class="price">${money(Math.round(discountedPrice5ml))}</div>
+                    <div style="color:var(--discount-green);font-size:12px;font-weight:700">
+                        Ahorras ${money(Math.round(savings5ml))}
+                    </div>
+                    <button class="btn-reservar-small" onclick="event.stopPropagation(); reservarDecantTamaño('5ml')">
+                        Reservar 5ml
+                    </button>
+                </div>
+                <div class="price-option">
+                    <h4>10ml</h4>
+                    <div class="original">${money(decant.price10ml)}</div>
+                    <div class="price">${money(Math.round(discountedPrice10ml))}</div>
+                    <div style="color:var(--discount-green);font-size:12px;font-weight:700">
+                        Ahorras ${money(Math.round(savings10ml))}
+                    </div>
+                    <button class="btn-reservar-small" onclick="event.stopPropagation(); reservarDecantTamaño('10ml')">
+                        Reservar 10ml
+                    </button>
+                </div>
+            `;
+
+            // Configurar botón principal (por defecto 10ml)
+            el('#decant-reservar-btn').setAttribute('onclick', `reservarDecantTamaño('10ml')`);
+
+            // Mostrar modal
+            el('#decant-backdrop').style.display = 'flex';
+            el('#decant-backdrop').setAttribute('aria-hidden', 'false');
+        }
+
+        function closeDecantModal() {
+            el('#decant-backdrop').style.display = 'none';
+            el('#decant-backdrop').setAttribute('aria-hidden', 'true');
+            currentDecant = null;
+        }
+
+        function reservarDecantTamaño(tamaño) {
+            if (!currentDecant) return;
+
+            let price, originalPrice;
+            if (tamaño === '5ml') {
+                price = currentDecant.price5ml * (1 - currentDecant.discount / 100);
+                originalPrice = currentDecant.price5ml;
+            } else {
+                price = currentDecant.price10ml * (1 - currentDecant.discount / 100);
+                originalPrice = currentDecant.price10ml;
+            }
+
+            let reservas = JSON.parse(localStorage.getItem('fraganza_reservas')) || [];
+
+            const productoId = `${currentDecant.id}-${tamaño}`;
+            const productoExistente = reservas.find(p => p.id === productoId);
+
+            if (productoExistente) {
+                productoExistente.cantidad += 1;
+            } else {
+                reservas.push({
+                    id: productoId,
+                    name: `${currentDecant.name} ${tamaño} (${currentDecant.discount}% OFF)`,
+                    price: Math.round(price),
+                    desc: `Decant ${tamaño} - ${currentDecant.discount}% de descuento`,
+                    image: currentDecant.image || '',
+                    cantidad: 1,
+                    originalPrice: originalPrice,
+                    discount: currentDecant.discount
+                });
+            }
+
+            localStorage.setItem('fraganza_reservas', JSON.stringify(reservas));
+            actualizarContadorReservas();
+            mostrarConfirmacionReserva(`${currentDecant.name} ${tamaño}`);
+            closeDecantModal();
+        }
+
+        function reservarDecantDesdeModal() {
+            // Por defecto reserva el de 10ml
+            reservarDecantTamaño('10ml');
+        }
+
+        function addDecantToReservas(id, tamaño = '10ml') {
+            const decant = decantsData.find(d => d.id === id);
+            if (!decant) return;
+
+            let price, originalPrice;
+            if (tamaño === '5ml') {
+                price = decant.price5ml * (1 - decant.discount / 100);
+                originalPrice = decant.price5ml;
+            } else {
+                price = decant.price10ml * (1 - decant.discount / 100);
+                originalPrice = decant.price10ml;
+            }
+
+            let reservas = JSON.parse(localStorage.getItem('fraganza_reservas')) || [];
+
+            const productoId = `${decant.id}-${tamaño}`;
+            const productoExistente = reservas.find(p => p.id === productoId);
+
+            if (productoExistente) {
+                productoExistente.cantidad += 1;
+            } else {
+                reservas.push({
+                    id: productoId,
+                    name: `${decant.name} ${tamaño} (${decant.discount}% OFF)`,
+                    price: Math.round(price),
+                    desc: `Decant ${tamaño} - ${decant.discount}% de descuento`,
+                    image: decant.image || '',
+                    cantidad: 1,
+                    originalPrice: originalPrice,
+                    discount: decant.discount
+                });
+            }
+
+            localStorage.setItem('fraganza_reservas', JSON.stringify(reservas));
+            actualizarContadorReservas();
+            mostrarConfirmacionReserva(`${decant.name} ${tamaño}`);
+        }
+
+        function mostrarConfirmacionReserva(nombreProducto) {
+            const notificacion = document.createElement('div');
+            notificacion.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+                color: white;
+                padding: 12px 18px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 1000;
+                font-weight: 600;
+                animation: slideIn 0.3s ease;
+            `;
+
+            notificacion.innerHTML = `
+                ✅ ¡Agregado a reservas!<br>
+                <strong>${nombreProducto}</strong>
+                <br><small style="opacity:0.9">Ver en <a href="reservas.html" style="color:white;text-decoration:underline">Mis Reservas</a></small>
+            `;
+
+            document.body.appendChild(notificacion);
+
+            setTimeout(() => {
+                notificacion.style.animation = 'fadeOut 0.3s ease';
+                setTimeout(() => notificacion.remove(), 300);
+            }, 3000);
+        }
+
+        // ============================================
+        // CÓDIGO EXISTENTE DEL SISTEMA
+        // ============================================
+
+        let currentProduct = null;
+
+        const bestsellersData = [
+            {
+                id: 'bestseller-1',
+                name: "Xerjoff Erba Pura",
+                notes: ["Cítrico", "Dulce", "Avainillado", "Atalcado", "Ambar", "Afrutados", "Almizclado", "Fresco especiado"],
+                price: 300000,
+                image: "./Xerjoff Erba Pura.avif",
+                desc: "Sarang de Oakcha es una fragancia de la familia olfativa para Hombres y Mujeres. Las Notas de Salida son bergamota, naranja y limón (lima ácida); la Nota de Corazón es frutas; las Notas de Fondo son vainilla Bourbon, almizcle blanco y ámbar."
+            },
+            {
+                id: 'bestseller-2',
+                name: "Jean Paul Gaultier Le Beau Le Parfam",
+                notes: ["Dulce", "Amaderado", "Coco", "Ambar", "Avainillado", "Tropical", "Afrutados", "Atalcado", "Iris", "Lactónico"],
+                price: 240000,
+                image: "Jean Paul Gaultier Le Beau Le Parfam.avif",
+                desc: "Le Beau Le Parfum de Jean Paul Gaultier es una fragancia de la familia olfativa Oriental Amaderada para Hombres. Le Beau Le Parfum se lanzó en 2022. La Nariz detrás de esta fragrancia es Quentin Bisch. Las Notas de Salida son piña, iris, jengibre y ciprés; las Notas de Corazón son coco y notas amaderadas; las Notas de Fondo son haba tonka, sándalo, ámbar y ámbar gris."
+            },
+            {
+                id: 'bestseller-3',
+                name: "Valentino Coral Born Coral Fantasy",
+                notes: ["Aromático", "Afrutados", "Tabaco", "Dulce", "Cálido especiado", "Fresco especiado", "Lavanda", "Amaderado", "Cítrico", "Pachulí"],
+                price: 210000,
+                image: "Valentino Coral Fantasy.avif",
+                desc: "Valentino Uomo Born In Roma Coral Fantasy de Valentino es una fragancia de la familia olfativa Amaderada Aromática para Hombres. Valentino Uomo Born In Roma Coral Fantasy se lanzó en 2022. Valentino Uomo Born In Roma Coral Fantasy fue creada por Nicolas Beaulieu y Jean-Christophe Hérault. Las Notas de Salida son manzana roja, cardamomo y bergamota de Calabria; las Notas de Corazón son lavanda, geranio bourbon y esclarea; las Notas de Fondo son hojas de tabaco, pachulí y vetiver de Haití."
+            },
+            {
+                id: 'bestseller-4',
+                name: "Bharara King",
+                notes: ["Cítrico", "Afrutados", "Dulce", "Avainillado", "Atalcado", "Almizclado", "Ambar", "Fresco especiado"],
+                price: 115000,
+                image: "Bharara King.avif",
+                desc: "King de Bharara es una fragancia de la familia olfativa Aromática para Hombres. King se lanzó en 2021. Las Notas de Salida son naranja, limón (lima ácida) y bergamota; la Nota de Corazón es notas afrutadas; las Notas de Fondo son vainilla, almizcle blanco y ámbar."
+            }
+        ];
+
+        function actualizarContadorReservas() {
+            const reservas = JSON.parse(localStorage.getItem('fraganza_reservas')) || [];
+            const totalProductos = reservas.reduce((sum, p) => sum + p.cantidad, 0);
+            el('#reserva-count').textContent = totalProductos;
+        }
+
+        function agregarAReservas(producto) {
+            let reservas = JSON.parse(localStorage.getItem('fraganza_reservas')) || [];
+
+            const productoExistente = reservas.find(p => p.id === producto.id);
+
+            if (productoExistente) {
+                productoExistente.cantidad += 1;
+            } else {
+                reservas.push({
+                    id: producto.id,
+                    name: producto.name,
+                    price: producto.price,
+                    desc: producto.desc || '',
+                    image: producto.image || '',
+                    cantidad: 1
+                });
+            }
+
+            localStorage.setItem('fraganza_reservas', JSON.stringify(reservas));
+            actualizarContadorReservas();
+            mostrarConfirmacionReserva(producto.name);
+        }
+
+        function reservarProducto() {
+            if (currentProduct) {
+                agregarAReservas(currentProduct);
+                closeModal();
+            }
+        }
+
+        function createCard(p) {
+            const div = document.createElement('div');
+            div.className = 'card';
+
+            let imageContent;
+            if (p.image) {
+                imageContent = `<img src="${p.image}" alt="${p.name}" onerror="this.style.display='none'; this.parentNode.innerHTML='<div style=\'width:100%;height:100%;display:grid;place-items:center;color:#fff;font-weight:900;font-size:18px;background:linear-gradient(135deg,var(--green-dark),var(--green-mid))\'>${p.name.split(' ').map(w => w[0]).filter(char => char.match(/[A-Z]/)).slice(0, 2).join('')}</div>'">`;
+            } else {
+                const initials = p.name.split(' ').map(w => w[0]).filter(char => char.match(/[A-Z]/)).slice(0, 2).join('') || 'PF';
+                imageContent = `<div style="width:100%;height:100%;display:grid;place-items:center;color:#fff;font-weight:900;font-size:24px;background:linear-gradient(135deg,var(--green-dark),var(--green-mid))">${initials}</div>`;
+            }
+
+            div.innerHTML = `
+                <div class="thumb">${imageContent}</div>
+                <div class="meta">
+                    <h3>${p.name}</h3>
+                    <p>${(p.notes || ['Notas no disponibles']).join(' · ')}</p>
+                    <div class="price">${money(p.price)}</div>
+                </div>
+            `;
+
+            div.addEventListener('click', () => openModal(p));
+
+            return div;
+        }
+
+        function loadBestsellers() {
+            const bestsellersGrid = el('#catalog-grid');
+            if (!bestsellersGrid) return;
+
+            bestsellersGrid.innerHTML = '';
+            bestsellersData.forEach(product => {
+                bestsellersGrid.appendChild(createCard(product));
+            });
+        }
+
+        const backdrop = el('#backdrop');
+        function openModal(p) {
+            currentProduct = p;
+            el('#m-name').textContent = p.name;
+            el('#m-desc').textContent = p.desc || 'Descripción no disponible';
+
+            const notes = el('#m-notes');
+            notes.innerHTML = '';
+            (p.notes || []).forEach(n => {
+                const li = document.createElement('li');
+                li.textContent = n;
+                notes.appendChild(li);
+            });
+
+            el('#m-price').textContent = money(p.price);
+
+            const mArt = el('#m-art');
+            if (p.image) {
+                mArt.innerHTML = `<img src="${p.image}" alt="${p.name}" onerror="this.style.display='none'; this.parentNode.innerHTML='<div style=\\'width:100%;height:100%;display:grid;place-items:center;color:#fff;font-weight:900;font-size:28px;background:linear-gradient(135deg,var(--green-dark),var(--green-mid))\\'>${p.name.split(' ').slice(0, 2).join(' ')}</div>'">`;
+                mArt.style.background = 'none';
+                mArt.style.padding = '20px';
+            } else {
+                mArt.textContent = p.name.split(' ').slice(0, 2).join(' ');
+                mArt.style.background = 'linear-gradient(135deg,var(--green-dark),var(--green-mid))';
+                mArt.style.display = 'flex';
+                mArt.style.alignItems = 'center';
+                mArt.style.justifyContent = 'center';
+                mArt.style.color = '#fff';
+                mArt.style.fontWeight = '900';
+                mArt.style.fontSize = '28px';
+                mArt.style.padding = '20px';
+            }
+
+            backdrop.style.display = 'flex';
+            backdrop.setAttribute('aria-hidden', 'false');
+        }
+
+        function closeModal() {
+            backdrop.style.display = 'none';
+            backdrop.setAttribute('aria-hidden', 'true');
+            currentProduct = null;
+        }
+
+        function toggleOffcanvas() {
+            const oc = el('#offcanvas');
+            if (oc.classList.contains('show')) {
+                oc.classList.remove('show');
+                setTimeout(() => {
+                    oc.style.display = 'none';
+                }, 300);
+            } else {
+                oc.style.display = 'block';
+                setTimeout(() => {
+                    oc.classList.add('show');
+                }, 10);
+            }
+        }
+
+        // Inicializar todo
+        document.addEventListener('DOMContentLoaded', function () {
+            loadDecants();
+            loadBestsellers();
+            actualizarContadorReservas();
+
+            // Event listeners para modales
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeModal();
+                    closeDecantModal();
+                    const oc = el('#offcanvas');
+                    if (oc.classList.contains('show')) {
+                        toggleOffcanvas();
+                    }
+                }
+            });
+
+            backdrop.addEventListener('click', (e) => {
+                if (e.target === backdrop) closeModal();
+            });
+
+            el('#decant-backdrop').addEventListener('click', (e) => {
+                if (e.target === el('#decant-backdrop')) {
+                    closeDecantModal();
+                }
+            });
+
+            el('#offcanvas').addEventListener('click', (e) => {
+                if (e.target === el('#offcanvas')) {
+                    toggleOffcanvas();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
