@@ -10,573 +10,14 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Playfair+Display:wght@400;700&display=swap"
     rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
   <meta name="description" content="Colección de perfumes árabes en Fraganza. Oud, ámbar y rosas intensas." />
   <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
-  <style>
-    :root {
-      --green-dark: #042f26;
-      --green-mid: #0b6a55;
-      --white: #ffffff;
-      --muted: #eef6f3;
-      --glass: rgba(255, 255, 255, 0.06);
-      --accent: rgba(4, 47, 38, 0.06);
-      --radius: 18px;
-      --shadow: 0 20px 60px rgba(4, 47, 38, 0.12);
-      --maxw: 1200px;
-      --transition: 360ms cubic-bezier(.2, .9, .25, 1);
-      --nav-height: 76px;
-      --discount-green: #059669;
-      --discount-bg: rgba(5, 150, 105, 0.08);
-    }
-
-    * {
-      box-sizing: border-box
-    }
-
-    html,
-    body {
-      height: 100%
-    }
-
-    body {
-      margin: 0;
-      font-family: Montserrat, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      background: linear-gradient(180deg, var(--muted), var(--white));
-      color: var(--green-dark);
-      line-height: 1.45;
-      font-size: 15px
-    }
-
-    .wrap {
-      max-width: var(--maxw);
-      margin: 18px auto;
-      padding: 18px
-    }
-
-    .navbar-wrap {
-      position: sticky;
-      top: 12px;
-      z-index: 60
-    }
-
-    .navbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 12px 18px;
-      border-radius: 16px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), var(--white));
-      box-shadow: 0 20px 60px rgba(4, 47, 38, 0.06);
-      height: var(--nav-height)
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px
-    }
-
-    .logo {
-      width: 64px;
-      height: 64px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
-      display: grid;
-      place-items: center;
-      color: var(--white);
-      font-family: 'Playfair Display';
-      font-size: 22px;
-      font-weight: 700;
-      box-shadow: 0 8px 30px rgba(4, 47, 38, 0.18)
-    }
-
-    .brand h1 {
-      margin: 0;
-      font-size: 18px
-    }
-
-    .brand p {
-      margin: 0;
-      font-size: 12px;
-      color: #1f5146
-    }
-
-    .nav-center {
-      display: flex;
-      gap: 8px;
-      align-items: center
-    }
-
-    .nav-link {
-      position: relative;
-      padding: 10px 14px;
-      border-radius: 10px;
-      color: var(--green-dark);
-      text-decoration: none;
-      font-weight: 700;
-      cursor: pointer
-    }
-
-    .nav-link:hover {
-      background: var(--accent);
-      transform: translateY(-4px)
-    }
-
-    .nav-cta {
-      background: var(--green-dark);
-      color: var(--white);
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-weight: 800
-    }
-
-    .nav-reserva {
-      background: var(--green-dark);
-      color: var(--white);
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-weight: 800
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 10px
-    }
-
-    .icon-btn {
-      background: transparent;
-      border: 0;
-      padding: 8px;
-      border-radius: 8px;
-      cursor: pointer;
-      color: var(--green-dark)
-    }
-
-    .mobile-toggle {
-      display: none
-    }
-
-    .hero {
-      margin-top: 18px;
-      padding: 22px;
-      border-radius: 12px;
-      background: linear-gradient(180deg, var(--white), var(--white));
-      box-shadow: 0 8px 30px rgba(4, 47, 38, 0.04);
-      display: flex;
-      gap: 18px;
-      align-items: flex-start
-    }
-
-    .hero .left {
-      flex: 1
-    }
-
-    .eyebrow {
-      font-weight: 800;
-      color: var(--green-mid);
-      letter-spacing: 0.6px
-    }
-
-    .hero h1 {
-      font-family: 'Playfair Display';
-      margin: 0 0 8px;
-      font-size: 32px;
-      color: var(--green-dark)
-    }
-
-    .hero p {
-      margin: 0;
-      color: #1e5346
-    }
-
-    .controls {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      margin-top: 14px;
-      flex-wrap: wrap;
-    }
-
-    .select,
-    .btn-filter,
-    .search-input {
-      padding: 10px 12px;
-      border-radius: 10px;
-      border: 1px solid rgba(4, 47, 38, 0.06);
-      background: var(--white);
-      cursor: pointer;
-      font-family: inherit;
-      font-size: 14px;
-    }
-
-    .search-input {
-      flex: 1;
-      min-width: 200px;
-      cursor: text;
-    }
-
-    .search-input:focus {
-      outline: none;
-      border-color: var(--green-mid);
-    }
-
-    .btn-filter {
-      background: linear-gradient(90deg, var(--green-dark), var(--green-mid));
-      color: #fff;
-      border: 0
-    }
-
-    .premium-card {
-      background: linear-gradient(135deg, var(--white), #f7fff8);
-      border-radius: 12px;
-      padding: 16px;
-      color: var(--green-dark);
-      box-shadow: 0 12px 40px rgba(4, 47, 38, 0.15);
-      border: 1px solid rgba(4, 47, 38, 0.08);
-      width: 280px;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .premium-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 48px rgba(4, 47, 38, 0.18);
-    }
-
-    .premium-image {
-      width: 100%;
-      height: 120px;
-      border-radius: 8px;
-      margin-bottom: 12px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .premium-image img {
-      max-width: 100%;
-      max-height: 100%;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      border-radius: 6px;
-    }
-
-    .premium-badge {
-      background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
-      color: var(--white);
-      padding: 4px 10px;
-      border-radius: 16px;
-      font-size: 11px;
-      font-weight: 800;
-      display: inline-block;
-      margin-bottom: 8px;
-    }
-
-    .premium-card h3 {
-      margin: 0 0 6px;
-      font-size: 16px;
-      color: var(--green-dark);
-      font-family: 'Playfair Display';
-      font-weight: 700;
-    }
-
-    .premium-card p {
-      margin: 0 0 12px;
-      color: #225241;
-      font-size: 13px;
-      line-height: 1.4;
-    }
-
-    .premium-price {
-      font-size: 18px;
-      font-weight: 800;
-      color: var(--green-dark);
-      margin-bottom: 10px;
-    }
-
-    .premium-cta {
-      background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
-      color: var(--white);
-      border: none;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-weight: 700;
-      cursor: pointer;
-      width: 100%;
-      font-size: 13px;
-      transition: var(--transition);
-    }
-
-    .premium-cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(4, 47, 38, 0.2);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 18px;
-      margin-top: 18px
-    }
-
-    .card {
-      background: linear-gradient(180deg, var(--white), #fbfffb);
-      padding: 16px;
-      border-radius: 12px;
-      border: 1px solid rgba(4, 47, 38, 0.03);
-      box-shadow: 0 8px 28px rgba(4, 47, 38, 0.04);
-      transition: var(--transition);
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card:hover {
-      transform: translateY(-8px)
-    }
-
-    .discount-badge {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
-      color: white;
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-weight: 900;
-      font-size: 12px;
-      z-index: 2;
-      box-shadow: 0 4px 12px rgba(4, 47, 38, 0.2);
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      min-width: 70px;
-      justify-content: center;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-
-    .thumb {
-      height: 200px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-weight: 900;
-      font-size: 24px;
-      overflow: hidden;
-      padding: 10px;
-    }
-
-    .thumb img {
-      max-width: 100%;
-      max-height: 100%;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      border-radius: 8px;
-    }
-
-    .meta {
-      margin-top: 10px
-    }
-
-    .meta h3 {
-      margin: 0;
-      color: var(--green-dark);
-      font-size: 16px;
-      line-height: 1.3;
-    }
-
-    .meta p {
-      margin: 8px 0 0;
-      color: #225241;
-      font-size: 14px;
-      line-height: 1.4;
-    }
-
-    .price-container {
-      margin-top: 8px;
-      padding: 8px;
-      background: var(--discount-bg);
-      border-radius: 8px;
-      border: 1px solid rgba(5, 150, 105, 0.1);
-    }
-
-    .original-price {
-      color: #666;
-      font-size: 12px;
-      text-decoration: line-through;
-      display: block;
-      margin-bottom: 2px;
-    }
-
-    .discounted-price {
-      font-size: 18px;
-      font-weight: 900;
-      color: var(--green-dark);
-      display: block;
-      line-height: 1.2;
-    }
-
-    .savings {
-      font-size: 11px;
-      color: var(--discount-green);
-      font-weight: 700;
-      margin-top: 2px;
-    }
-
-    .backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(2, 15, 12, 0.6);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 80
-    }
-
-    .modal {
-      background: var(--white);
-      width: min(860px, 94%);
-      border-radius: 12px;
-      padding: 18px;
-      display: grid;
-      grid-template-columns: 1fr 360px;
-      gap: 12px
-    }
-
-    .close {
-      background: transparent;
-      border: 0;
-      font-size: 18px;
-      cursor: pointer;
-      color: var(--green-dark)
-    }
-
-    #m-art {
-      width: 100%;
-      height: 320px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-weight: 900;
-      font-size: 28px;
-      overflow: hidden;
-      padding: 20px;
-    }
-
-    #m-art img {
-      max-width: 100%;
-      max-height: 100%;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      border-radius: 8px;
-    }
-
-    .btn-reservar {
-      background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
-      color: var(--white);
-      border: none;
-      padding: 12px 20px;
-      border-radius: 8px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .btn-reservar:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(4, 47, 38, 0.3);
-    }
-
-    footer {
-      margin-top: 28px;
-      border-radius: 12px;
-      padding: 28px;
-      background: linear-gradient(180deg, var(--green-dark), var(--green-mid));
-      color: var(--white);
-      box-shadow: 0 30px 80px rgba(4, 47, 38, 0.18)
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px
-    }
-
-    .footer a {
-      color: rgba(255, 255, 255, 0.95);
-      text-decoration: none
-    }
-
-    @media (max-width:980px) {
-      .hero {
-        flex-direction: column
-      }
-
-      .modal {
-        grid-template-columns: 1fr
-      }
-
-      .nav-center {
-        display: none
-      }
-
-      .mobile-toggle {
-        display: block
-      }
-
-      .footer-grid {
-        grid-template-columns: repeat(2, 1fr)
-      }
-
-      .controls {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .search-input {
-        min-width: auto;
-      }
-
-      .premium-card {
-        width: 100%;
-        max-width: 320px;
-        margin: 0 auto;
-      }
-    }
-
-    @media (max-width:640px) {
-      .hero h1 {
-        font-size: 28px
-      }
-
-      .grid {
-        grid-template-columns: 1fr
-      }
-    }
-
-    .small {
-      font-size: 13px
-    }
-  </style>
 </head>
 
 <body>
   <div class="wrap">
-
     <div class="navbar-wrap">
       <div class="navbar">
         <div style="display:flex;align-items:center;gap:12px">
@@ -589,7 +30,6 @@
             </div>
           </div>
         </div>
-
         <div class="nav-center" role="navigation" aria-label="Navegación principal">
           <a class="nav-link" href="index.html">Inicio</a>
           <a class="nav-link" href="arabes.html">Perfumes Árabes</a>
@@ -597,7 +37,6 @@
           <a class="nav-link" href="proximo.html">Próximamente</a>
           <a class="nav-link nav-reserva" href="reservas.html">Mis Reservas</a>
         </div>
-
         <div class="nav-right">
           <div class="reserva-indicator">
             <button class="icon-btn" aria-label="Ver reservas" onclick="window.location.href='reservas.html'">📋 <span
@@ -606,29 +45,32 @@
         </div>
       </div>
     </div>
-
-    <div id="offcanvas" style="position:fixed;inset:0;background:rgba(0,0,0,0.4);display:none;z-index:90">
-      <div style="width:300px;height:100%;background:var(--white);padding:18px">
-        <div style="display:flex;justify-content:space-between;align-items:center"><strong>Menú</strong><button
-            onclick="toggleOffcanvas()" class="icon-btn">✕</button></div>
-        <nav style="margin-top:18px;display:flex;flex-direction:column;gap:8px">
-          <a href="index.html">Inicio</a>
-          <a href="arabes.html">Perfumes Árabes</a>
-          <a href="disenador.html">Diseñador</a>
-          <a href="proximo.html">Próximamente</a>
-          <a href="reservas.html" style="color:var(--green-dark);font-weight:800">Mis Reservas</a>
+    <div class="offcanvas" id="offcanvas">
+      <div class="offcanvas-content">
+        <div class="offcanvas-header">
+          <h3 class="offcanvas-title">Menú</h3>
+          <button class="offcanvas-close" onclick="toggleOffcanvas()">✕</button>
+        </div>
+        <nav class="offcanvas-nav">
+          <a href="index.html" class="offcanvas-link">🏠 Inicio</a>
+          <a href="arabes.html" class="offcanvas-link active">🌙 Perfumes Árabes</a>
+          <a href="disenador.html" class="offcanvas-link">👔 Diseñador</a>
+          <a href="proximo.html" class="offcanvas-link">🆕 Próximamente</a>
+          <a href="reservas.html" class="offcanvas-link">📋 Mis Reservas</a>
         </nav>
+        <div class="offcanvas-footer">
+          <div class="small" style="color: rgba(4, 47, 38, 0.6); text-align: center;">
+            Fraganza © 2025<br>Perfumería selecta
+          </div>
+        </div>
       </div>
     </div>
-
     <section class="hero">
       <div class="left">
-        <div class="eyebrow" style="font-weight:800;color:var(--green-mid);letter-spacing:0.6px">Colecciones
-          destacadas</div>
+        <div class="eyebrow">Colecciones destacadas</div>
         <h1>Perfumes Árabes — Intensidad y tradición</h1>
-        <p>Selección de fragancias orientales: oud, ámbar, rosa y resinas. Perfumes con carácter, pensados para
-          durar y dejar huella.</p>
-
+        <p>Selección de fragancias orientales: oud, ámbar, rosa y resinas. Perfumes con carácter, pensados para durar y
+          dejar huella.</p>
         <div class="controls">
           <select id="filter-type" class="select" aria-label="Filtrar por categoría">
             <option value="all">Todas las categorías</option>
@@ -643,28 +85,24 @@
           <button class="nav-cta" onclick="resetFilters()">Reset</button>
         </div>
       </div>
-
       <aside>
         <div class="premium-card" onclick="openPremiumModal()">
           <div class="premium-image">
-            <img src="Liquid Brun French Avenue.avif" alt="Liquid Brun French Avenue "
+            <img src="Liquid Brun French Avenue.avif" alt="Liquid Brun French Avenue"
               onerror="this.style.display='none'; this.parentNode.innerHTML='<div style=\'width:100%;height:100%;display:grid;place-items:center;color:#fff;font-weight:900;font-size:16px;background:linear-gradient(135deg,var(--green-dark),var(--green-mid))\'>AOG</div>'">
           </div>
           <div class="premium-badge">EDICIÓN EXCLUSIVA</div>
           <h3>Liquid Brun French Avenue</h3>
           <p>12 a 36 horas de uso real. Alta duración.</p>
-
           <div class="premium-price">$95000</div>
           <button class="premium-cta" onclick="event.stopPropagation(); agregarPremiumAReservas();">Reservar
             Ahora</button>
         </div>
       </aside>
     </section>
-
     <section style="margin-top:18px">
       <div class="grid" id="arab-grid"></div>
     </section>
-
     <div class="backdrop" id="backdrop">
       <div class="modal" role="dialog" aria-modal="true">
         <div>
@@ -686,13 +124,12 @@
         </div>
       </div>
     </div>
-
     <footer>
       <div class="footer-grid footer">
         <div>
           <h4>Fraganza</h4>
-          <p class="small" style="color:rgba(255,255,255,0.95)">Perfumería · Autenticidad y selección cuidada.
-            Blanco & Verde Oscuro.</p>
+          <p class="small" style="color:rgba(255,255,255,0.95)">Perfumería · Autenticidad y selección cuidada. Blanco &
+            Verde Oscuro.</p>
           <div style="margin-top:10px">ventas@fraganza.example · +54 9 11 1234 5678</div>
         </div>
         <div>
@@ -715,16 +152,13 @@
           <a href="#">Política de envíos</a>
         </div>
       </div>
-
       <div
         style="margin-top:18px;border-top:1px solid rgba(255,255,255,0.06);padding-top:14px;display:flex;justify-content:space-between;align-items:center">
         <div>© Fraganza 2025 · Todos los derechos reservados</div>
         <div class="small" style="color:rgba(255,255,255,0.85)">Diseño: Fraganza · Pagos seguros</div>
       </div>
     </footer>
-
   </div>
-
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyB8W3Lf5Q8VY8Y6Y8Y6Y8Y6Y8Y6Y8Y6Y8Y6",
@@ -741,7 +175,6 @@
         firebase.initializeApp(firebaseConfig);
       }
       db = firebase.firestore();
-      console.log("Firebase inicializado correctamente");
     } catch (error) {
       console.error("Error inicializando Firebase:", error);
     }
@@ -759,7 +192,7 @@
 
     const premiumProduct = {
       id: 'premium-arabe',
-      name: "Liquid Brun French Avenue ",
+      name: "Liquid Brun French Avenue",
       desc: "Liquid Brun de French Avenue es una fragancia de la familia olfativa Amaderada para Hombres. Esta fragrancia es nueva. Liquid Brun se lanzó en 2024. Las Notas de Salida son canela, flor de azahar del naranjo, cardamomo y bergamota; las Notas de Corazón son vainilla Bourbon y elemí; las Notas de Fondo son praliné, ambroxan, madera de gaiac y almizcle.",
       price: 95000,
       image: "Liquid Brun French Avenue.avif"
@@ -800,22 +233,22 @@
     function mostrarConfirmacionReserva(nombreProducto) {
       const notificacion = document.createElement('div');
       notificacion.style.cssText = `
-        position: fixed;
-        top: 100px;
-        right: 20px;
-        background: var(--green-dark);
-        color: white;
-        padding: 12px 18px;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        z-index: 1000;
-        font-weight: 600;
-      `;
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: var(--green-dark);
+                color: white;
+                padding: 12px 18px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 1000;
+                font-weight: 600;
+            `;
 
       notificacion.innerHTML = `
-        ✅ Agregado a reservas: ${nombreProducto} (${DESCUENTO_GLOBAL}% OFF)
-        <br><small style="opacity:0.9">Ver en <a href="reservas.html" style="color:white;text-decoration:underline">Mis Reservas</a></small>
-      `;
+                ✅ Agregado a reservas: ${nombreProducto} (${DESCUENTO_GLOBAL}% OFF)
+                <br><small style="opacity:0.9">Ver en <a href="reservas.html" style="color:white;text-decoration:underline">Mis Reservas</a></small>
+            `;
 
       document.body.appendChild(notificacion);
 
@@ -844,14 +277,14 @@
       const ahorro = premiumProduct.price - precioConDescuento;
 
       el('#m-price-container').innerHTML = `
-        <div style="background:var(--discount-bg);padding:12px;border-radius:8px;border:1px solid rgba(5,150,105,0.1);">
-          <div style="color:#666;font-size:14px;text-decoration:line-through;">${money(premiumProduct.price)}</div>
-          <div style="font-size:24px;font-weight:900;color:var(--green-dark);">${money(Math.round(precioConDescuento))}</div>
-          <div style="color:var(--discount-green);font-size:13px;font-weight:700;margin-top:4px;">
-            Ahorras ${money(Math.round(ahorro))} (${DESCUENTO_GLOBAL}% OFF)
-          </div>
-        </div>
-      `;
+                <div style="background:var(--discount-bg);padding:12px;border-radius:8px;border:1px solid rgba(5,150,105,0.1);">
+                    <div style="color:#666;font-size:14px;text-decoration:line-through;">${money(premiumProduct.price)}</div>
+                    <div style="font-size:24px;font-weight:900;color:var(--green-dark);">${money(Math.round(precioConDescuento))}</div>
+                    <div style="color:var(--discount-green);font-size:13px;font-weight:700;margin-top:4px;">
+                        Ahorras ${money(Math.round(ahorro))} (${DESCUENTO_GLOBAL}% OFF)
+                    </div>
+                </div>
+            `;
 
       const mArt = el('#m-art');
       if (premiumProduct.image) {
@@ -882,13 +315,9 @@
           return;
         }
 
-        console.log("Cargando perfumes árabes...");
-
         const snapshot = await db.collection('items')
           .where('mainCategory', '==', 'Arabe')
           .get();
-
-        console.log("Perfumes árabes encontrados:", snapshot.size);
 
         allArabProducts = snapshot.docs.map(doc => {
           const data = doc.data();
@@ -952,17 +381,17 @@
       const ahorro = p.price - precioConDescuento;
 
       div.innerHTML = `
-        <div class="discount-badge">⚡ ${DESCUENTO_GLOBAL}% OFF</div>
-        <div class="thumb">${imageContent}</div>
-        <div class="meta">
-          <h3>${p.name}</h3>
-          <div class="price-container">
-            <span class="original-price">${money(p.price)}</span>
-            <span class="discounted-price">${money(Math.round(precioConDescuento))}</span>
-            <div class="savings">Ahorras ${money(Math.round(ahorro))}</div>
-          </div>
-        </div>
-      `;
+                <div class="discount-badge">⚡ ${DESCUENTO_GLOBAL}% OFF</div>
+                <div class="thumb">${imageContent}</div>
+                <div class="meta">
+                    <h3>${p.name}</h3>
+                    <div class="price-container">
+                        <span class="original-price">${money(p.price)}</span>
+                        <span class="discounted-price">${money(Math.round(precioConDescuento))}</span>
+                        <div class="savings">Ahorras ${money(Math.round(ahorro))}</div>
+                    </div>
+                </div>
+            `;
 
       if (p.price > 0) {
         div.addEventListener('click', () => openModal(p));
@@ -1036,14 +465,14 @@
       const ahorro = p.price - precioConDescuento;
 
       el('#m-price-container').innerHTML = `
-        <div style="background:var(--discount-bg);padding:12px;border-radius:8px;border:1px solid rgba(5,150,105,0.1);">
-          <div style="color:#666;font-size:14px;text-decoration:line-through;">${money(p.price)}</div>
-          <div style="font-size:24px;font-weight:900;color:var(--green-dark);">${money(Math.round(precioConDescuento))}</div>
-          <div style="color:var(--discount-green);font-size:13px;font-weight:700;margin-top:4px;">
-            Ahorras ${money(Math.round(ahorro))} (${DESCUENTO_GLOBAL}% OFF)
-          </div>
-        </div>
-      `;
+                <div style="background:var(--discount-bg);padding:12px;border-radius:8px;border:1px solid rgba(5,150,105,0.1);">
+                    <div style="color:#666;font-size:14px;text-decoration:line-through;">${money(p.price)}</div>
+                    <div style="font-size:24px;font-weight:900;color:var(--green-dark);">${money(Math.round(precioConDescuento))}</div>
+                    <div style="color:var(--discount-green);font-size:13px;font-weight:700;margin-top:4px;">
+                        Ahorras ${money(Math.round(ahorro))} (${DESCUENTO_GLOBAL}% OFF)
+                    </div>
+                </div>
+            `;
 
       const mArt = el('#m-art');
       if (p.image) {
@@ -1076,7 +505,17 @@
 
     function toggleOffcanvas() {
       const oc = el('#offcanvas');
-      oc.style.display = oc.style.display === 'block' ? 'none' : 'block';
+      if (oc.classList.contains('show')) {
+        oc.classList.remove('show');
+        setTimeout(() => {
+          oc.style.display = 'none';
+        }, 300);
+      } else {
+        oc.style.display = 'block';
+        setTimeout(() => {
+          oc.classList.add('show');
+        }, 10);
+      }
     }
 
     if (db) {
