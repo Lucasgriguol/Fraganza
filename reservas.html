@@ -403,7 +403,7 @@
         .offcanvas {
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.4);
+            background: rgba(0, 0, 0, 0.4);
             display: none;
             z-index: 90;
             animation: fadeIn 0.3s ease;
@@ -557,8 +557,13 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
     </style>
 </head>
@@ -614,7 +619,8 @@
         <section class="hero">
             <div class="eyebrow">Sistema de Reservas</div>
             <h1>Mis Reservas</h1>
-            <p>Revisá tus productos seleccionados y completá tus datos para finalizar la reserva.</p>
+            <p>Completá tus datos y enviá tu pedido por WhatsApp. También podés descargar una nota con los detalles.</p>
+            <p>Si ya reservaste y aun te aparece el pedido abajo. No te preocupes, puedes eliminarlo manualmente y esperar a que te demos una respuesta.</p>
         </section>
 
         <div class="reserva-layout">
@@ -670,7 +676,11 @@
                     </div>
 
                     <button type="submit" class="btn-reservar" id="btn-reservar" disabled>
-                        Finalizar Reserva
+                        Enviar por WhatsApp
+                    </button>
+                    <button type="button" class="btn-reservar" id="btn-descargar"
+                        style="margin-top:10px;background:#0b6a55;" onclick="descargarNota()" disabled>
+                        📄 Descargar Nota
                     </button>
                 </form>
             </div>
@@ -722,6 +732,7 @@
         const listaProductos = el('#lista-productos');
         const formulario = el('#formulario-reserva');
         const btnReservar = el('#btn-reservar');
+        const btnDescargar = el('#btn-descargar');
 
         function money(n) { return '$' + n.toLocaleString('es-AR'); }
 
@@ -807,7 +818,9 @@
             el('#resumen-subtotal').textContent = money(subtotal);
             el('#resumen-total').textContent = money(total);
 
-            btnReservar.disabled = reservas.length === 0;
+            const tieneProductos = reservas.length > 0;
+            btnReservar.disabled = !tieneProductos;
+            btnDescargar.disabled = !tieneProductos;
         }
 
         formulario.addEventListener('submit', function (e) {
@@ -815,6 +828,10 @@
 
             if (reservas.length === 0) {
                 alert('No tenés productos para reservar.');
+                return;
+            }
+
+            if (!confirm('¿Enviar reserva por WhatsApp? Se abrirá una nueva ventana.')) {
                 return;
             }
 
@@ -835,18 +852,72 @@
 
             const mensaje = `¡Hola! Tengo una nueva reserva:%0A%0A*Datos del cliente:*%0ANombre: ${datos.nombre}%0ATeléfono: ${datos.telefono}%0AEmail: ${datos.email}%0A%0A*Productos reservados:*%0A${productosTexto}%0A%0A*Total: ${money(datos.total)}*%0A%0A${datos.direccion ? `*Dirección:*%0A${datos.direccion}%0A%0A` : ''}${datos.comentarios ? `*Comentarios:*%0A${datos.comentarios}` : ''}`;
 
-            const telefono = '5491112345678';
+            const telefono = '+5493585329427';
             const url = `https://wa.me/${telefono}?text=${mensaje}`;
 
-            reservas = [];
-            localStorage.setItem('fraganza_reservas', JSON.stringify(reservas));
-
-            formulario.reset();
-
-            alert('¡Reserva enviada con éxito! Te contactaremos pronto.');
             window.open(url, '_blank');
-            cargarReservas();
+
+            alert('Reserva enviada por WhatsApp. Te contactaremos pronto.');
         });
+
+        function descargarNota() {
+            if (reservas.length === 0) {
+                alert('No tenés productos para descargar.');
+                return;
+            }
+
+            const datos = {
+                nombre: el('#nombre').value || 'No especificado',
+                telefono: el('#telefono').value || 'No especificado',
+                email: el('#email').value || 'No especificado',
+                direccion: el('#direccion').value || 'No especificado',
+                comentarios: el('#comentarios').value || 'Sin comentarios',
+                productos: reservas,
+                fecha: new Date().toLocaleString('es-AR'),
+                total: reservas.reduce((sum, p) => sum + (p.price * p.cantidad), 0)
+            };
+
+            const productosTexto = reservas.map(p =>
+                `- ${p.name} (${p.cantidad} unidad${p.cantidad > 1 ? 'es' : ''}) - ${money(p.price * p.cantidad)}`
+            ).join('\n');
+
+            const contenido = `
+RESERVA - FRAGANZA
+===================
+Fecha: ${datos.fecha}
+
+DATOS DEL CLIENTE:
+Nombre: ${datos.nombre}
+Teléfono: ${datos.telefono}
+Email: ${datos.email}
+Dirección: ${datos.direccion}
+
+PRODUCTOS RESERVADOS:
+${productosTexto}
+
+TOTAL: ${money(datos.total)}
+
+COMENTARIOS ADICIONALES:
+${datos.comentarios}
+
+---
+Gracias por tu reserva.
+Fraganza - Perfumería selecta
+ventas@fraganza.example · +54 9 11 1234 5678
+            `.trim();
+
+            const blob = new Blob([contenido], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `reserva-fraganza-${Date.now()}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            alert('Nota descargada correctamente.');
+        }
 
         function toggleOffcanvas() {
             const oc = el('#offcanvas');

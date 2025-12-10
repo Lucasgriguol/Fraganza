@@ -239,7 +239,6 @@
             font-size: 14px;
         }
 
-        /* SECCIÓN DE DECANTS - ESTILO VERDE */
         .decants-section {
             margin-top: 40px;
             position: relative;
@@ -295,7 +294,6 @@
             margin-top: 16px;
         }
 
-        /* TARJETAS DE DECANTS COMPACTAS */
         .decant-card {
             background: linear-gradient(180deg, var(--white), #fbfffb);
             border-radius: 14px;
@@ -316,7 +314,6 @@
             border-color: var(--green-mid);
         }
 
-        /* BADGE DE DESCUENTO EN VERDE */
         .discount-badge {
             position: absolute;
             top: 12px;
@@ -338,7 +335,7 @@
         }
 
         .decant-image {
-            height: 120px;
+            height: 15rem;
             border-radius: 10px 10px 0 0;
             display: flex;
             align-items: center;
@@ -358,8 +355,7 @@
         }
 
         .decant-image img {
-            max-width: 80%;
-            max-height: 80%;
+            max-width: 180px;
             object-fit: contain;
             border-radius: 6px;
         }
@@ -401,7 +397,6 @@
             opacity: 0.9;
         }
 
-        /* PRECIO CON DESCUENTO EN VERDE */
         .price-container {
             margin: 8px 0;
             padding: 8px;
@@ -460,7 +455,6 @@
             box-shadow: 0 6px 16px rgba(4, 47, 38, 0.2);
         }
 
-        /* BANNER DE DESCUENTOS EN VERDE */
         .discount-banner {
             background: linear-gradient(90deg,
                     rgba(4, 47, 38, 0.08),
@@ -512,7 +506,6 @@
             opacity: 0.8;
         }
 
-        /* MODAL PARA DECANTS */
         .decant-modal-content {
             max-height: 80vh;
             overflow-y: auto;
@@ -587,10 +580,7 @@
         }
 
         .thumb img {
-            max-width: 100%;
-            max-height: 100%;
-            width: auto;
-            height: auto;
+            width: 150px;
             object-fit: contain;
             border-radius: 8px;
         }
@@ -660,34 +650,7 @@
         }
 
         #decant-modal-image img {
-            max-width: 100%;
-            max-height: 100%;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            border-radius: 8px;
-        }
-
-        #m-art {
-            width: 100%;
-            height: 320px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-weight: 900;
-            font-size: 28px;
-            overflow: hidden;
-            padding: 20px;
-        }
-
-        #m-art img {
-            max-width: 100%;
-            max-height: 100%;
-            width: auto;
-            height: auto;
+            width: 320px;
             object-fit: contain;
             border-radius: 8px;
         }
@@ -1003,7 +966,7 @@
                 </nav>
                 <div class="offcanvas-footer">
                     <div class="small" style="color: rgba(4, 47, 38, 0.6); text-align: center;">
-                        Fraganza © 2025<br>Perfumería selecta
+                        Fraganza © 25<br>Perfumería selecta
                     </div>
                 </div>
             </div>
@@ -1021,7 +984,7 @@
                     <a class="nav-link" href="disenador.html">Ver Diseñador</a>
                     <button class="nav-cta"
                         onclick="document.getElementById('decants').scrollIntoView({behavior:'smooth'})">
-                        🎁 20% OFF en Decants
+                        🎁 25% OFF en Decants
                     </button>
                 </div>
             </section>
@@ -1038,8 +1001,8 @@
                         <p>Clásicos de casa, modernizados para cada ocasión.</p>
                     </a>
                     <a class="collection" href="#decants">
-                        <h4>Decants 20% OFF</h4>
-                        <p>Prueba las mejores fragancias con 20% de descuento.</p>
+                        <h4>Todo con 25% OFF</h4>
+                        <p>Prueba las mejores fragancias con 25% de descuento.</p>
                     </a>
                     <a class="collection" href="proximo.html">
                         <h4>Próximamente</h4>
@@ -1048,23 +1011,20 @@
                 </div>
             </section>
 
-            <!-- SECCIÓN DE DECANTS CON 20% OFF EN TODOS -->
             <section id="decants" class="decants-section">
                 <div class="section-header">
                     <h3 class="section-title">Decants Especiales</h3>
                     <div class="discount-ribbon">
-                        ⚡ 20% OFF EN TODOS ⚡
+                        ⚡ 25% OFF EN TODOS ⚡
                     </div>
                 </div>
 
                 <div class="discount-banner">
-                    <p class="banner-text">🎉 ¡Promoción especial! Todos los decants con 20% de descuento</p>
+                    <p class="banner-text">🎉 ¡Promoción especial! Todos los decants con 25% de descuento</p>
                     <p class="banner-subtext">Oferta válida por tiempo limitado • Stock disponible</p>
                 </div>
 
-                <!-- LOS DECANTS SE CARGAN DINÁMICAMENTE -->
                 <div class="decants-grid" id="decants-list">
-                    <!-- Los decants se cargarán aquí automáticamente -->
                 </div>
             </section>
 
@@ -1103,7 +1063,6 @@
 
         </main>
 
-        <!-- MODAL PARA DECANTS -->
         <div class="backdrop" id="decant-backdrop">
             <div class="modal" role="dialog" aria-modal="true" id="decant-modal">
                 <div class="decant-modal-content">
@@ -1113,19 +1072,15 @@
                     </div>
 
                     <div id="decant-modal-image" class="thumb" style="height:320px;margin-bottom:20px">
-                        <!-- Imagen se carga aquí -->
                     </div>
 
                     <div id="decant-modal-desc" style="color:#225241;margin-bottom:20px">
-                        <!-- Descripción se carga aquí -->
                     </div>
 
                     <div id="decant-modal-notes" style="margin-bottom:20px">
-                        <!-- Notas se cargan aquí -->
                     </div>
 
                     <div class="decant-prices" id="decant-prices-container">
-                        <!-- Precios de 5ml y 10ml se cargan aquí -->
                     </div>
 
                     <button class="btn-reservar" id="decant-reservar-btn" onclick="reservarDecantDesdeModal()">
@@ -1135,24 +1090,25 @@
             </div>
         </div>
 
-        <!-- MODAL ORIGINAL (para productos normales) -->
         <div class="backdrop" id="backdrop">
             <div class="modal" role="dialog" aria-modal="true">
-                <div>
-                    <div style="display:flex;justify-content:space-between;align-items:center">
-                        <h3 id="m-name">Nombre</h3>
-                        <button class="close" onclick="closeModal()">✕</button>
+                <div style="display:grid;grid-template-columns:1fr 360px;gap:24px;">
+                    <div style="display:grid;place-items:center">
+                        <div id="m-art" style="width:100%;height:320px;"></div>
                     </div>
-                    <p id="m-desc" style="color:#225241"></p>
-                    <ul id="m-notes"></ul>
-                    <div style="margin-top:12px"><strong id="m-price" style="color:var(--green-dark)"></strong></div>
-                    <div style="margin-top:14px;display:flex;gap:8px">
-                        <button class="btn-reservar" onclick="reservarProducto()">Reservar ahora</button>
-                        <button class="nav-link" onclick="closeModal()">Cerrar</button>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;align-items:center">
+                            <h3 id="m-name">Nombre</h3>
+                            <button class="close" onclick="closeModal()">✕</button>
+                        </div>
+                        <p id="m-desc" style="color:#225241;margin-top:12px;"></p>
+                        <ul id="m-notes" style="margin:12px 0;"></ul>
+                        <div style="margin-top:12px;"><strong id="m-price" style="color:var(--green-dark);font-size:24px;"></strong></div>
+                        <div style="margin-top:14px;display:flex;gap:8px">
+                            <button class="btn-reservar" onclick="reservarProducto()">Reservar ahora</button>
+                            <button class="nav-link" onclick="closeModal()">Cerrar</button>
+                        </div>
                     </div>
-                </div>
-                <div style="display:grid;place-items:center">
-                    <div id="m-art"></div>
                 </div>
             </div>
         </div>
@@ -1217,138 +1173,110 @@
 
         function money(n) { return '$' + n.toLocaleString('es-AR'); }
 
-        // ============================================
-        // ARRAY DE DECANTS - TODOS CON 20% OFF, 2 TAMAÑOS E IMAGEN
-        // ============================================
         const decantsData = [
             {
                 id: 'decant-1',
-                name: "Le Beau Le Parfum - Jean Paul Gaultier",
-                price5ml: 20000,
-                price10ml: 35000,
-                discount: 20, // 20% OFF
-                notes: ["Ambarino", "Afrutado", "Especiado"],
-                desc: "Le Beau Le Parfum de Jean Paul Gaultier es una fragancia de la familia olfativa Oriental Amaderada para Hombres. Le Beau Le Parfum se lanzó en 2022. La Nariz detrás de esta fragrancia es Quentin Bisch. Las Notas de Salida son piña, iris, jengibre y ciprés; las Notas de Corazón son coco y notas amaderadas; las Notas de Fondo son haba tonka, sándalo, ámbar y ámbar gris",
-                image: "./Le Beau Le Parfum dec.jpg" // Agrega tu imagen aquí
+                name: "Sauvage Eau de Parfum Dior",
+                notes: [""],
+                price5ml: 15765,
+                price10ml: 31530,
+                discount: 25,
+                desc: "Sauvage Eau de Parfum de Dior es una fragancia de la familia olfativa Oriental Fougère para Hombres. Sauvage Eau de Parfum se lanzó en 2018. La Nariz detrás de esta fragrancia es François Demachy. La Nota de Salida es bergamota; las Notas de Corazón son pimienta de Sichuan, lavanda, anís estrellado y nuez moscada; las Notas de Fondo son ambroxan y vainilla.",
+                image: "./Sauvage Eau de Parfum Dior (D).jpg"
             },
             {
                 id: 'decant-2',
-                name: "Sauvage Parfum - Dior",
-                price5ml: 35000,
-                price10ml: 60000,
-                discount: 20, // 20% OFF
-                notes: ["Ahumado", "Pino", "Cítrico"],
-                desc: "Sauvage Parfum de Dior es una fragancia de la familia olfativa Oriental Fougère para Hombres. Sauvage Parfum se lanzó en 2019. La Nariz detrás de esta fragrancia es François Demachy. Las Notas de Salida son bergamota, mandarina y elemí; la Nota de Corazón es sándalo; las Notas de Fondo son incienso de olíbano (franquincienso), haba tonka y vainilla.",
-                image: "./Sauvage Parfum - Dior dec.jpg"
+                name: "Le Beau Jean Paul Gaultier",
+                notes: [""],
+                price5ml: 19000,
+                price10ml: 37000,
+                discount: 25,
+                desc: "Le Beau de Jean Paul Gaultier es una fragancia de la familia olfativa Amaderada Aromática para Hombres. Le Beau se lanzó en 2019. Le Beau fue creada por Quentin Bisch y Sonia Constant. La Nota de Salida es bergamota; la Nota de Corazón es coco; la Nota de Fondo es haba tonka.",
+                image: "./Le Beau Jean Paul Gaultier (D).jpg"
             },
             {
                 id: 'decant-3',
-                name: "Tom Ford Oud Wood",
-                price5ml: 28000,
-                price10ml: 48000,
-                discount: 20, // 20% OFF
-                notes: ["Oud", "Amaderado", "Especiado"],
-                desc: "Oud Wood de Tom Ford es una fragancia lujosa que combina oud raro con notas amaderadas y especiadas. Sofisticación oriental en su máxima expresión.",
-                image: "./Valentino Coral Fantasy.avif"
+                name: "Tropical Vibe Rayhaan",
+                notes: [""],
+                price5ml: 7750,
+                price10ml: 15500,
+                discount: 25,
+                desc: "Tropical Vibe de Rayhaan es una fragancia de la familia olfativa para Hombres y Mujeres. Esta fragrancia es nueva. Tropical Vibe se lanzó en 2025. Las Notas de Salida son mango, piña y bergamota; la Nota de Corazón es coco; las Notas de Fondo son ámbar, almizcle, vetiver y sándalo.",
+                image: "./Tropical Vibe Rayhaan (D).jpg"
             },
             {
                 id: 'decant-4',
-                name: "Bleu de Chanel",
-                price5ml: 18000,
-                price10ml: 32000,
-                discount: 20, // 20% OFF
-                notes: ["Cítrico", "Jengibre", "Amaderado"],
-                desc: "Bleu de Chanel reinterpreta la elegancia masculina con notas cítricas y especiadas. Un perfume versátil para cualquier ocasión.",
-                image: "bleu-de-chanel.jpg"
+                name: "Hawas for Him Rasasi",
+                notes: [""],
+                price5ml: 7750,
+                price10ml: 15500,
+                discount: 25,
+                desc: "Hawas for Him de Rasasi es una fragancia de la familia olfativa Aromática Acuática para Hombres. Hawas for Him se lanzó en 2015. Las Notas de Salida son manzana, bergamota, limón (lima ácida) y canela; las Notas de Corazón son notas acuosas, ciruela, flor de azahar del naranjo y cardamomo; las Notas de Fondo son ámbar gris, almizcle, pachulí y trozos de madera a la deriva.",
+                image: "./Hawas for Him Rasasi (D).jpg"
             },
             {
                 id: 'decant-5',
-                name: "Yves Saint Laurent Y",
-                price5ml: 19000,
-                price10ml: 34000,
-                discount: 20, // 20% OFF
-                notes: ["Afrutado", "Jengibre", "Amaderado"],
-                desc: "Y Eau de Parfum combina frescura cítrica con profundidad amaderada. Una fragancia moderna para el hombre contemporáneo.",
-                image: "ysl-y.jpg"
+                name: "9 Pm Rebel Afnan",
+                notes: [""],
+                price5ml: 9000,
+                price10ml: 18000,
+                discount: 25,
+                desc: "9 PM Rebel de Afnan es una fragancia de la familia olfativa Aromática Frutal para Hombres y Mujeres. Esta fragrancia es nueva. 9 PM Rebel se lanzó en 2024. La Nariz detrás de esta fragrancia es Gaël Montero. Las Notas de Salida son piña, manzana Granny Smith y mandarina; las Notas de Corazón son musgo de roble, cedro y vainilla; las Notas de Fondo son Madera seca, ámbar gris, caramelo y almizcle.",
+                image: "./9 Pm Rebel Afnan (D).jpg"
             },
             {
                 id: 'decant-6',
-                name: "Jean Paul Gaultier Le Male",
-                price5ml: 22000,
-                price10ml: 38000,
-                discount: 20, // 20% OFF
-                notes: ["Menta", "Lavanda", "Vainilla"],
-                desc: "Le Male es un ícono de los 90s que reinventa las notas clásicas masculinas con un toque moderno y seductor.",
-                image: "jpg-le-male.jpg"
+                name: "King Bharara",
+                notes: [""],
+                price5ml: 8750,
+                price10ml: 17500,
+                discount: 25,
+                desc: "King de Bharara es una fragancia de la familia olfativa Aromática para Hombres. King se lanzó en 2021. Las Notas de Salida son naranja, bergamota y limón (lima ácida); la Nota de Corazón es notas afrutadas; las Notas de Fondo son vainilla, almizcle blanco y ámbar.",
+                image: "./King Bharara (D).jpg"
             },
             {
                 id: 'decant-7',
-                name: "Armani Code",
-                price5ml: 16000,
-                price10ml: 28000,
-                discount: 20, // 20% OFF
-                notes: ["Cítrico", "Oliva", "Tabaco"],
-                desc: "Armani Code combina frescura mediterránea con calidez oriental. Elegante, sofisticado y atemporal.",
-                image: "armani-code.jpg"
+                name: "Liquid Brun French Avenue",
+                notes: [""],
+                price5ml: 9000,
+                price10ml: 18000,
+                discount: 25,
+                desc: "Liquid Brun de French Avenue es una fragancia de la familia olfativa Amaderada para Hombres. Esta fragrancia es nueva. Liquid Brun se lanzó en 2024. Las Notas de Salida son canela, flor de azahar del naranjo, cardamomo y bergamota; las Notas de Corazón son vainilla Bourbon y elemí; las Notas de Fondo son praliné, ambroxan, madera de gaiac y almizcle.",
+                image: "./Liquid Brun French Avenue (D).jpg"
             },
             {
                 id: 'decant-8',
-                name: "Paco Rabanne 1 Million",
-                price5ml: 21000,
-                price10ml: 37000,
-                discount: 20, // 20% OFF
-                notes: ["Cítrico", "Canela", "Cuero"],
-                desc: "1 Million es audaz, glamoroso y lujoso. Una fragancia que captura la esencia del éxito y la celebración.",
-                image: "1-million.jpg"
+                name: "Atlas Lattafa",
+                notes: [""],
+                price5ml: 6000,
+                price10ml: 12000,
+                discount: 25,
+                desc: "Atlas de Lattafa Perfumes es una fragancia de la familia olfativa para Hombres y Mujeres. Esta fragrancia es nueva. Atlas se lanzó en 2024. Las Notas de Salida son notas marinas, sal y limón (lima ácida); las Notas de Corazón son Davana y iris; las Notas de Fondo son ámbar gris, musgo de roble y sándalo.",
+                image: "./Atlas Lattafa (D).jpg"
             },
             {
                 id: 'decant-9',
-                name: "Versace Eros",
-                price5ml: 17000,
-                price10ml: 30000,
-                discount: 20, // 20% OFF
-                notes: ["Menta", "Manzana", "Vainilla"],
-                desc: "Eros es una declaración de amor y belleza. Combina frescura vibrante con dulzura sensual.",
-                image: "versace-eros.jpg"
+                name: "Nitro White Dumont",
+                notes: [""],
+                price5ml: 8450,
+                price10ml: 16900,
+                discount: 25,
+                desc: "Nitro White de Dumont es una fragancia de la familia olfativa Cuero para Hombres. Esta fragrancia es nueva. Nitro White se lanzó en 2024. Las Notas de Salida son bayas de enebro, iris y ciprés; las Notas de Corazón son mirra y pachulí; las Notas de Fondo son miel, vainilla, ámbar, almizcle y cuero.",
+                image: "./Nitro White Dumont (D).jpg"
             },
             {
                 id: 'decant-10',
-                name: "Dolce & Gabbana The One",
-                price5ml: 24000,
-                price10ml: 42000,
-                discount: 20, // 20% OFF
-                notes: ["Jengibre", "Cardamomo", "Ámbar"],
-                desc: "The One es sofisticado y seductor, con notas especiadas y amaderadas que crean una presencia memorable.",
-                image: "dolce-the-one.jpg"
-            },
-            {
-                id: 'decant-11',
-                name: "Givenchy Gentleman",
-                price5ml: 19500,
-                price10ml: 35000,
-                discount: 20, // 20% OFF
-                notes: ["Peras", "Lavanda", "Patchouli"],
-                desc: "Gentleman Givenchy reinterpreta la elegancia clásica con un toque moderno y audaz.",
-                image: "givenchy-gentleman.jpg"
-            },
-            {
-                id: 'decant-12',
-                name: "Hermès Terre d'Hermès",
-                price5ml: 26500,
-                price10ml: 48000,
-                discount: 20, // 20% OFF
-                notes: ["Naranja", "Pimienta", "Vetiver"],
-                desc: "Terre d'Hermès captura la esencia de la tierra con notas minerales y cítricas. Sofisticado y terrenal.",
-                image: "hermes-terre.jpg"
+                name: "Pacific Rayhaan",
+                notes: [""],
+                price5ml: 7750,
+                price10ml: 15500,
+                discount: 25,
+                desc: "Pacific de Rayhaan es una fragancia de la familia olfativa para Hombres. Pacific se lanzó en 2022. Las Notas de Salida son bergamota, limón (lima ácida), naranja tangerina y cardamomo; las Notas de Corazón son lavanda y ciprés; la Nota de Fondo es ámbar.",
+                image: "./Pacific Rayhaan (D).jpg"
             }
         ];
 
-        // Variables para manejar el decant actual
         let currentDecant = null;
-
-        // ============================================
-        // FUNCIONES PARA CARGAR Y MOSTRAR DECANTS
-        // ============================================
 
         function loadDecants() {
             const decantsList = el('#decants-list');
@@ -1357,7 +1285,6 @@
             decantsList.innerHTML = '';
 
             decantsData.forEach(decant => {
-                // Mostrar precio del de 10ml en la card
                 const discountedPrice10ml = decant.price10ml * (1 - decant.discount / 100);
                 const savings10ml = decant.price10ml - discountedPrice10ml;
 
@@ -1366,7 +1293,6 @@
                 div.setAttribute('data-id', decant.id);
                 div.addEventListener('click', () => openDecantModal(decant.id));
 
-                // Imagen o iniciales
                 let imageContent;
                 if (decant.image) {
                     imageContent = `
@@ -1422,10 +1348,8 @@
             const savings5ml = decant.price5ml - discountedPrice5ml;
             const savings10ml = decant.price10ml - discountedPrice10ml;
 
-            // Configurar modal
             el('#decant-modal-name').textContent = decant.name;
 
-            // Imagen
             const modalImage = el('#decant-modal-image');
             if (decant.image) {
                 modalImage.innerHTML = `
@@ -1444,17 +1368,14 @@
                 modalImage.style.padding = '20px';
             }
 
-            // Descripción
             el('#decant-modal-desc').textContent = decant.desc;
 
-            // Notas
             const notesContainer = el('#decant-modal-notes');
             notesContainer.innerHTML = '<strong>Notas principales:</strong><br>';
             decant.notes.forEach(note => {
                 notesContainer.innerHTML += `<span style="display:inline-block;background:var(--accent);padding:4px 10px;margin:4px 4px 0 0;border-radius:12px;font-size:13px">${note}</span>`;
             });
 
-            // Precios de ambos tamaños
             const pricesContainer = el('#decant-prices-container');
             pricesContainer.innerHTML = `
                 <div class="price-option">
@@ -1481,10 +1402,8 @@
                 </div>
             `;
 
-            // Configurar botón principal (por defecto 10ml)
             el('#decant-reservar-btn').setAttribute('onclick', `reservarDecantTamaño('10ml')`);
 
-            // Mostrar modal
             el('#decant-backdrop').style.display = 'flex';
             el('#decant-backdrop').setAttribute('aria-hidden', 'false');
         }
@@ -1534,7 +1453,6 @@
         }
 
         function reservarDecantDesdeModal() {
-            // Por defecto reserva el de 10ml
             reservarDecantTamaño('10ml');
         }
 
@@ -1605,10 +1523,6 @@
                 setTimeout(() => notificacion.remove(), 300);
             }, 3000);
         }
-
-        // ============================================
-        // CÓDIGO EXISTENTE DEL SISTEMA
-        // ============================================
 
         let currentProduct = null;
 
@@ -1777,13 +1691,11 @@
             }
         }
 
-        // Inicializar todo
         document.addEventListener('DOMContentLoaded', function () {
             loadDecants();
             loadBestsellers();
             actualizarContadorReservas();
 
-            // Event listeners para modales
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') {
                     closeModal();

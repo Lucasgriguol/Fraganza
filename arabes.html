@@ -26,6 +26,8 @@
       --maxw: 1200px;
       --transition: 360ms cubic-bezier(.2, .9, .25, 1);
       --nav-height: 76px;
+      --discount-green: #059669;
+      --discount-bg: rgba(5, 150, 105, 0.08);
     }
 
     * {
@@ -331,11 +333,33 @@
       border: 1px solid rgba(4, 47, 38, 0.03);
       box-shadow: 0 8px 28px rgba(4, 47, 38, 0.04);
       transition: var(--transition);
-      cursor: pointer
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
     }
 
     .card:hover {
       transform: translateY(-8px)
+    }
+
+    .discount-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+      color: white;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-weight: 900;
+      font-size: 12px;
+      z-index: 2;
+      box-shadow: 0 4px 12px rgba(4, 47, 38, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      min-width: 70px;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.3);
     }
 
     .thumb {
@@ -378,11 +402,35 @@
       line-height: 1.4;
     }
 
-    .price {
-      font-weight: 800;
-      color: var(--green-dark);
+    .price-container {
       margin-top: 8px;
+      padding: 8px;
+      background: var(--discount-bg);
+      border-radius: 8px;
+      border: 1px solid rgba(5, 150, 105, 0.1);
+    }
+
+    .original-price {
+      color: #666;
+      font-size: 12px;
+      text-decoration: line-through;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .discounted-price {
       font-size: 18px;
+      font-weight: 900;
+      color: var(--green-dark);
+      display: block;
+      line-height: 1.2;
+    }
+
+    .savings {
+      font-size: 11px;
+      color: var(--discount-green);
+      font-weight: 700;
+      margin-top: 2px;
     }
 
     .backdrop {
@@ -625,7 +673,9 @@
             <button class="close" onclick="closeModal()">✕</button>
           </div>
           <p id="m-desc" style="color:#225241"></p>
-          <div style="margin-top:12px"><strong id="m-price" style="color:var(--green-dark)"></strong></div>
+          <div style="margin-top:12px">
+            <div id="m-price-container"></div>
+          </div>
           <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
             <button class="btn-reservar" onclick="reservarProducto()">Reservar ahora</button>
             <button class="nav-link" onclick="closeModal()">Cerrar</button>
@@ -705,6 +755,8 @@
     let categories = new Set();
     let currentProduct = null;
 
+    const DESCUENTO_GLOBAL = 25;
+
     const premiumProduct = {
       id: 'premium-arabe',
       name: "Liquid Brun French Avenue ",
@@ -727,13 +779,16 @@
       if (productoExistente) {
         productoExistente.cantidad += 1;
       } else {
+        const precioConDescuento = producto.price * (1 - DESCUENTO_GLOBAL / 100);
         reservas.push({
           id: producto.id,
-          name: producto.name,
-          price: producto.price,
+          name: producto.name + ` (${DESCUENTO_GLOBAL}% OFF)`,
+          price: Math.round(precioConDescuento),
           desc: producto.desc || '',
           image: producto.image || '',
-          cantidad: 1
+          cantidad: 1,
+          originalPrice: producto.price,
+          discount: DESCUENTO_GLOBAL
         });
       }
 
@@ -758,7 +813,7 @@
       `;
 
       notificacion.innerHTML = `
-        ✅ Agregado a reservas: ${nombreProducto}
+        ✅ Agregado a reservas: ${nombreProducto} (${DESCUENTO_GLOBAL}% OFF)
         <br><small style="opacity:0.9">Ver en <a href="reservas.html" style="color:white;text-decoration:underline">Mis Reservas</a></small>
       `;
 
@@ -784,7 +839,19 @@
       currentProduct = premiumProduct;
       el('#m-name').textContent = premiumProduct.name;
       el('#m-desc').textContent = premiumProduct.desc;
-      el('#m-price').textContent = money(premiumProduct.price);
+
+      const precioConDescuento = premiumProduct.price * (1 - DESCUENTO_GLOBAL / 100);
+      const ahorro = premiumProduct.price - precioConDescuento;
+
+      el('#m-price-container').innerHTML = `
+        <div style="background:var(--discount-bg);padding:12px;border-radius:8px;border:1px solid rgba(5,150,105,0.1);">
+          <div style="color:#666;font-size:14px;text-decoration:line-through;">${money(premiumProduct.price)}</div>
+          <div style="font-size:24px;font-weight:900;color:var(--green-dark);">${money(Math.round(precioConDescuento))}</div>
+          <div style="color:var(--discount-green);font-size:13px;font-weight:700;margin-top:4px;">
+            Ahorras ${money(Math.round(ahorro))} (${DESCUENTO_GLOBAL}% OFF)
+          </div>
+        </div>
+      `;
 
       const mArt = el('#m-art');
       if (premiumProduct.image) {
@@ -881,11 +948,19 @@
         imageContent = `<div style="width:100%;height:100%;display:grid;place-items:center;color:#fff;font-weight:900;font-size:24px;background:linear-gradient(135deg,var(--green-dark),var(--green-mid))">${initials}</div>`;
       }
 
+      const precioConDescuento = p.price * (1 - DESCUENTO_GLOBAL / 100);
+      const ahorro = p.price - precioConDescuento;
+
       div.innerHTML = `
+        <div class="discount-badge">⚡ ${DESCUENTO_GLOBAL}% OFF</div>
         <div class="thumb">${imageContent}</div>
         <div class="meta">
           <h3>${p.name}</h3>
-          <div class="price">${money(p.price)}</div>
+          <div class="price-container">
+            <span class="original-price">${money(p.price)}</span>
+            <span class="discounted-price">${money(Math.round(precioConDescuento))}</span>
+            <div class="savings">Ahorras ${money(Math.round(ahorro))}</div>
+          </div>
         </div>
       `;
 
@@ -936,9 +1011,9 @@
 
       const priceOrder = el('#filter-price').value;
       if (priceOrder === 'asc') {
-        filteredList.sort((a, b) => a.price - b.price);
+        filteredList.sort((a, b) => (a.price * (1 - DESCUENTO_GLOBAL / 100)) - (b.price * (1 - DESCUENTO_GLOBAL / 100)));
       } else if (priceOrder === 'desc') {
-        filteredList.sort((a, b) => b.price - a.price);
+        filteredList.sort((a, b) => (b.price * (1 - DESCUENTO_GLOBAL / 100)) - (a.price * (1 - DESCUENTO_GLOBAL / 100)));
       }
 
       render(filteredList);
@@ -956,7 +1031,19 @@
       currentProduct = p;
       el('#m-name').textContent = p.name;
       el('#m-desc').textContent = p.desc || 'Descripción no disponible';
-      el('#m-price').textContent = money(p.price);
+
+      const precioConDescuento = p.price * (1 - DESCUENTO_GLOBAL / 100);
+      const ahorro = p.price - precioConDescuento;
+
+      el('#m-price-container').innerHTML = `
+        <div style="background:var(--discount-bg);padding:12px;border-radius:8px;border:1px solid rgba(5,150,105,0.1);">
+          <div style="color:#666;font-size:14px;text-decoration:line-through;">${money(p.price)}</div>
+          <div style="font-size:24px;font-weight:900;color:var(--green-dark);">${money(Math.round(precioConDescuento))}</div>
+          <div style="color:var(--discount-green);font-size:13px;font-weight:700;margin-top:4px;">
+            Ahorras ${money(Math.round(ahorro))} (${DESCUENTO_GLOBAL}% OFF)
+          </div>
+        </div>
+      `;
 
       const mArt = el('#m-art');
       if (p.image) {
