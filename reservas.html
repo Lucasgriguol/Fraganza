@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Fraganza — Mis Reservas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Playfair+Display:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="Mis reservas en Fraganza - Completa tus datos para finalizar la reserva." />
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="navbar-wrap">
+            <div class="navbar">
+                <div style="display:flex;align-items:center;gap:12px">
+                    <button class="mobile-toggle icon-btn" aria-label="Abrir menú"
+                        onclick="toggleOffcanvas()">☰</button>
+                    <div class="brand">
+                        <img class="logo" src="Logo.jpg" alt="">
+                        <div>
+                            <h1>Fraganza</h1>
+                            <p class="small">Perfumería selecta</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-center" role="navigation" aria-label="Navegación principal">
+                    <a class="nav-link" href="index.html">Inicio</a>
+                    <a class="nav-link" href="arabes.html">Perfumes Árabes</a>
+                    <a class="nav-link" href="disenador.html">Diseñador</a>
+                    <a class="nav-link" href="proximo.html">Próximamente</a>
+                    <a class="nav-link nav-reserva" href="reservas.html">Mis Reservas</a>
+                </div>
+                <div class="nav-right">
+                    <div class="reserva-indicator">
+                        <button class="icon-btn" aria-label="Ver reservas"
+                            onclick="window.location.href='reservas.html'">📋 <span class="reserva-count"
+                                id="reserva-count">0</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="offcanvas" id="offcanvas">
+            <div class="offcanvas-content">
+                <div class="offcanvas-header">
+                    <h3 class="offcanvas-title">Menú</h3>
+                    <button class="offcanvas-close" onclick="toggleOffcanvas()">✕</button>
+                </div>
+                <nav class="offcanvas-nav">
+                    <a href="index.html" class="offcanvas-link"> Inicio</a>
+                    <a href="arabes.html" class="offcanvas-link"> Perfumes Árabes</a>
+                    <a href="disenador.html" class="offcanvas-link"> Diseñador</a>
+                    <a href="proximo.html" class="offcanvas-link"> Próximamente</a>
+                    <a href="reservas.html" class="offcanvas-link active"> Mis Reservas</a>
+                </nav>
+                <div class="offcanvas-footer">
+                    <div class="small" style="color: rgba(4, 47, 38, 0.6); text-align: center;">
+                        Fraganza © 2025<br>Perfumería selecta
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section class="hero">
+            <div class="eyebrow">Sistema de Reservas</div>
+            <h1>Mis Reservas</h1>
+            <p>Completá tus datos y enviá tu pedido por WhatsApp. También podés descargar una nota con los detalles.</p>
+            <p>Si ya reservaste y aun te aparece el pedido abajo. No te preocupes, puedes eliminarlo manualmente y
+                esperar a que te demos una respuesta.</p>
+        </section>
+        <div class="reserva-layout">
+            <div class="productos-section">
+                <h3>Productos seleccionados</h3>
+                <div id="lista-productos"></div>
+            </div>
+            <div class="datos-section">
+                <h3>Tus datos</h3>
+                <form id="formulario-reserva">
+                    <div class="form-group">
+                        <label for="nombre">Nombre completo *</label>
+                        <input type="text" id="nombre" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono *</label>
+                        <input type="tel" id="telefono" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="direccion">Dirección de envío</label>
+                        <textarea id="direccion" class="form-control" rows="3"
+                            placeholder="Calle, número, ciudad, código postal..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="comentarios">Comentarios adicionales</label>
+                        <textarea id="comentarios" class="form-control" rows="3"
+                            placeholder="Algún comentario sobre tu reserva..."></textarea>
+                    </div>
+                    <div class="resumen">
+                        <div class="resumen-item">
+                            <span>Productos:</span>
+                            <span id="resumen-cantidad">0</span>
+                        </div>
+                        <div class="resumen-item">
+                            <span>Subtotal:</span>
+                            <span id="resumen-subtotal">$0</span>
+                        </div>
+                        <div class="resumen-total">
+                            <span>Total:</span>
+                            <span id="resumen-total">$0</span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-reservar" id="btn-reservar" disabled>
+                        Enviar por WhatsApp
+                    </button>
+                    <button type="button" class="btn-reservar" id="btn-descargar"
+                        style="margin-top:10px;background:#0b6a55;" onclick="descargarNota()" disabled>
+                        📄 Descargar Nota
+                    </button>
+                </form>
+            </div>
+        </div>
+        <footer>
+            <div class="footer-grid footer">
+                <div>
+                    <h4>Fraganza</h4>
+                    <p class="small" style="color:rgba(255,255,255,0.95)">Perfumería · Autenticidad y selección cuidada.
+                        Blanco & Verde Oscuro.</p>
+                    <div style="margin-top:10px">fraganzza.shop@gmail.com · +54 9 358 9427 · Cordoba</div>
+                </div>
+                <div>
+                    <h4>Tienda</h4>
+                    <a href="arabes.html">Perfumes Árabes</a>
+                    <a href="disenador.html">Perfumes de Diseñador</a>
+                    <a href="proximo.html">Próximamente</a>
+                    <a href="reservas.html">Reservas</a>
+                </div>
+                <div>
+                    <h4>Atención al cliente</h4>
+                    <a href="#">Envíos y devoluciones</a>
+                    <a href="#">Métodos de pago</a>
+                    <a href="#">Preguntas frecuentes</a>
+                    <a href="#">Contacto</a>
+                </div>
+                <div>
+                    <h4>Legal</h4>
+                    <a href="#">Términos & Condiciones</a>
+                    <a href="#">Política de privacidad</a>
+                    <a href="#">Política de envíos</a>
+                </div>
+            </div>
+            <div
+                style="margin-top:18px;border-top:1px solid rgba(255,255,255,0.06);padding-top:14px;display:flex;justify-content:space-between;align-items:center">
+                <div>© Fraganza 2025 · Todos los derechos reservados</div>
+                <div class="small" style="color:rgba(255,255,255,0.85)">Diseño: Fraganza · Pagos seguros</div>
+            </div>
+        </footer>
+    </div>
+    <script>
+        let reservas = JSON.parse(localStorage.getItem('fraganza_reservas')) || [];
+
+        const el = s => document.querySelector(s);
+        const listaProductos = el('#lista-productos');
+        const formulario = el('#formulario-reserva');
+        const btnReservar = el('#btn-reservar');
+        const btnDescargar = el('#btn-descargar');
+
+        function money(n) { return '$' + n.toLocaleString('es-AR'); }
+
+        function cargarReservas() {
+            if (reservas.length === 0) {
+                mostrarEstadoVacio();
+                actualizarResumen();
+                return;
+            }
+
+            listaProductos.innerHTML = '';
+
+            reservas.forEach(producto => {
+                const div = document.createElement('div');
+                div.className = 'producto-item';
+
+                const iniciales = producto.name.split(' ').map(w => w[0]).filter(char => char.match(/[A-Z]/)).slice(0, 2).join('') || 'PF';
+
+                div.innerHTML = `
+                    <div class="producto-imagen">
+                        ${producto.image ?
+                        `<img src="${producto.image}" alt="${producto.name}" onerror="this.style.display='none'; this.parentNode.innerHTML='${iniciales}'">` :
+                        iniciales
+                    }
+                    </div>
+                    <div class="producto-info">
+                        <h4>${producto.name}</h4>
+                        <p>${producto.desc || 'Descripción no disponible'}</p>
+                        <div class="producto-precio">${money(producto.price)}</div>
+                        <div class="producto-cantidad">
+                            <button class="cantidad-btn" onclick="cambiarCantidad('${producto.id}', -1)">-</button>
+                            <span class="cantidad-text">${producto.cantidad}</span>
+                            <button class="cantidad-btn" onclick="cambiarCantidad('${producto.id}', 1)">+</button>
+                        </div>
+                    </div>
+                    <button class="eliminar-btn" onclick="eliminarProducto('${producto.id}')">
+                        Eliminar
+                    </button>
+                `;
+
+                listaProductos.appendChild(div);
+            });
+
+            actualizarResumen();
+        }
+
+        function mostrarEstadoVacio() {
+            listaProductos.innerHTML = `
+                <div class="estado-vacio">
+                    <h3>No tenés productos reservados</h3>
+                    <p>Agregá productos desde nuestras colecciones para verlos aquí.</p>
+                    <a href="index.html" class="btn-seguir-comprando">Seguir comprando</a>
+                </div>
+            `;
+        }
+
+        function cambiarCantidad(productId, cambio) {
+            const producto = reservas.find(p => p.id === productId);
+            if (!producto) return;
+
+            producto.cantidad += cambio;
+
+            if (producto.cantidad <= 0) {
+                eliminarProducto(productId);
+            } else {
+                localStorage.setItem('fraganza_reservas', JSON.stringify(reservas));
+                cargarReservas();
+            }
+        }
+
+        function eliminarProducto(productId) {
+            reservas = reservas.filter(p => p.id !== productId);
+            localStorage.setItem('fraganza_reservas', JSON.stringify(reservas));
+            cargarReservas();
+        }
+
+        function actualizarResumen() {
+            const totalProductos = reservas.reduce((sum, p) => sum + p.cantidad, 0);
+            const subtotal = reservas.reduce((sum, p) => sum + (p.price * p.cantidad), 0);
+            const total = subtotal;
+
+            el('#resumen-cantidad').textContent = totalProductos;
+            el('#resumen-subtotal').textContent = money(subtotal);
+            el('#resumen-total').textContent = money(total);
+
+            const tieneProductos = reservas.length > 0;
+            btnReservar.disabled = !tieneProductos;
+            btnDescargar.disabled = !tieneProductos;
+        }
+
+        formulario.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            if (reservas.length === 0) {
+                alert('No tenés productos para reservar.');
+                return;
+            }
+
+            if (!confirm('¿Enviar reserva por WhatsApp? Se abrirá una nueva ventana.')) {
+                return;
+            }
+
+            const datos = {
+                nombre: el('#nombre').value,
+                telefono: el('#telefono').value,
+                email: el('#email').value,
+                direccion: el('#direccion').value,
+                comentarios: el('#comentarios').value,
+                productos: reservas,
+                fecha: new Date().toISOString(),
+                total: reservas.reduce((sum, p) => sum + (p.price * p.cantidad), 0)
+            };
+
+            const productosTexto = reservas.map(p =>
+                `• ${p.name} (${p.cantidad} unidad${p.cantidad > 1 ? 'es' : ''}) - ${money(p.price * p.cantidad)}`
+            ).join('%0A');
+
+            const mensaje = `¡Hola! Tengo una nueva reserva:%0A%0A*Datos del cliente:*%0ANombre: ${datos.nombre}%0ATeléfono: ${datos.telefono}%0AEmail: ${datos.email}%0A%0A*Productos reservados:*%0A${productosTexto}%0A%0A*Total: ${money(datos.total)}*%0A%0A${datos.direccion ? `*Dirección:*%0A${datos.direccion}%0A%0A` : ''}${datos.comentarios ? `*Comentarios:*%0A${datos.comentarios}` : ''}`;
+
+            const telefono = '+5493516326888';
+            const url = `https://wa.me/${telefono}?text=${mensaje}`;
+
+            window.open(url, '_blank');
+
+            alert('Reserva enviada por WhatsApp. Te contactaremos pronto.');
+        });
+
+        function descargarNota() {
+            if (reservas.length === 0) {
+                alert('No tenés productos para descargar.');
+                return;
+            }
+
+            const datos = {
+                nombre: el('#nombre').value || 'No especificado',
+                telefono: el('#telefono').value || 'No especificado',
+                email: el('#email').value || 'No especificado',
+                direccion: el('#direccion').value || 'No especificado',
+                comentarios: el('#comentarios').value || 'Sin comentarios',
+                productos: reservas,
+                fecha: new Date().toLocaleString('es-AR'),
+                total: reservas.reduce((sum, p) => sum + (p.price * p.cantidad), 0)
+            };
+
+            const productosTexto = reservas.map(p =>
+                `- ${p.name} (${p.cantidad} unidad${p.cantidad > 1 ? 'es' : ''}) - ${money(p.price * p.cantidad)}`
+            ).join('\n');
+
+            const contenido = `
+RESERVA - FRAGANZA
+===================
+Fecha: ${datos.fecha}
+
+DATOS DEL CLIENTE:
+Nombre: ${datos.nombre}
+Teléfono: ${datos.telefono}
+Email: ${datos.email}
+Dirección: ${datos.direccion}
+
+PRODUCTOS RESERVADOS:
+${productosTexto}
+
+TOTAL: ${money(datos.total)}
+
+COMENTARIOS ADICIONALES:
+${datos.comentarios}
+
+---
+Gracias por tu reserva.
+Fraganza - Perfumería selecta
+ventas@fraganza.example · +54 9 11 1234 5678
+            `.trim();
+
+            const blob = new Blob([contenido], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `reserva-fraganza-${Date.now()}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            alert('Nota descargada correctamente.');
+        }
+
+        function toggleOffcanvas() {
+            const oc = el('#offcanvas');
+            if (oc.classList.contains('show')) {
+                oc.classList.remove('show');
+                setTimeout(() => {
+                    oc.style.display = 'none';
+                }, 300);
+            } else {
+                oc.style.display = 'block';
+                setTimeout(() => {
+                    oc.classList.add('show');
+                }, 10);
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const oc = el('#offcanvas');
+                if (oc.classList.contains('show')) {
+                    toggleOffcanvas();
+                }
+            }
+        });
+
+        el('#offcanvas').addEventListener('click', (e) => {
+            if (e.target === el('#offcanvas')) {
+                toggleOffcanvas();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            cargarReservas();
+        });
+    </script>
+</body>
+
+</html>

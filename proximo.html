@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Fraganza — Próximamente</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Playfair+Display:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="Próximamente en Fraganza: nuevas colecciones y lanzamientos." />
+</head>
+
+<body>
+    <div class="container">
+        <div class="navbar-wrap">
+            <div class="navbar">
+                <div style="display:flex;align-items:center;gap:12px">
+                    <button class="mobile-toggle icon-btn" aria-label="Abrir menú"
+                        onclick="toggleOffcanvas()">☰</button>
+                    <div class="brand">
+                        <img class="logo" src="Logo.jpg" alt="">
+                        <div>
+                            <h1>Fraganza</h1>
+                            <p class="small">Perfumería selecta</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-center" role="navigation" aria-label="Navegación principal">
+                    <a class="nav-link" href="index.html">Inicio</a>
+                    <a class="nav-link" href="arabes.html">Perfumes Árabes</a>
+                    <a class="nav-link" href="disenador.html">Diseñador</a>
+                    <a class="nav-link" href="proximo.html">Próximamente</a>
+                    <a class="nav-link nav-reserva" href="reservas.html">Mis Reservas</a>
+                </div>
+                <div class="nav-right">
+                    <div class="reserva-indicator">
+                        <button class="icon-btn" aria-label="Ver reservas"
+                            onclick="window.location.href='reservas.html'">📋 <span class="reserva-count"
+                                id="reserva-count">0</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="offcanvas" id="offcanvas">
+            <div class="offcanvas-content">
+                <div class="offcanvas-header">
+                    <h3 class="offcanvas-title">Menú</h3>
+                    <button class="offcanvas-close" onclick="toggleOffcanvas()">✕</button>
+                </div>
+                <nav class="offcanvas-nav">
+                    <a href="index.html" class="offcanvas-link"> Inicio</a>
+                    <a href="arabes.html" class="offcanvas-link"> Perfumes Árabes</a>
+                    <a href="disenador.html" class="offcanvas-link"> Diseñador</a>
+                    <a href="proximo.html" class="offcanvas-link active"> Próximamente</a>
+                    <a href="reservas.html" class="offcanvas-link"> Mis Reservas</a>
+                </nav>
+                <div class="offcanvas-footer">
+                    <div class="small" style="color: rgba(4, 47, 38, 0.6); text-align: center;">
+                        Fraganza © 2025<br>Perfumería selecta
+                    </div>
+                </div>
+            </div>
+        </div>
+        <main>
+            <section class="hero">
+                <h1>Próximamente en Fraganza</h1>
+                <p>Estamos preparando nuevas fragancias y colaboraciones exclusivas. Volvé pronto para descubrir
+                    lanzamientos, preventas y ediciones limitadas.</p>
+                <div class="teasers" aria-hidden>
+                    <div class="teaser">
+                        <strong>Lanzamientos: Nuevas fragancias</strong>
+                        <div style="margin-top:8px;color:rgba(4,47,38,0.6)">Profundidad y carácter — otoño 2025</div>
+                    </div>
+                    <div class="teaser">
+                        <strong>Descuentos exclusivos</strong>
+                        <div style="margin-top:8px;color:rgba(4,47,38,0.6)">Ediciones limitadas — pronto</div>
+                    </div>
+                    <div class="teaser">
+                        <strong>Preventas</strong>
+                        <div style="margin-top:8px;color:rgba(4,47,38,0.6)">Acceso anticipado para suscriptores</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <div class="footer-grid footer">
+                <div>
+                    <h4>Fraganza</h4>
+                    <p class="small" style="color:rgba(255,255,255,0.95)">Perfumería · Autenticidad y selección cuidada.
+                        Blanco & Verde Oscuro.</p>
+                    <div style="margin-top:10px">fraganzza.shop@gmail.com · +54 9 358 9427 · Cordoba</div>
+                </div>
+                <div>
+                    <h4>Tienda</h4>
+                    <a href="arabes.html">Perfumes Árabes</a>
+                    <a href="disenador.html">Perfumes de Diseñador</a>
+                    <a href="proximo.html">Próximamente</a>
+                </div>
+                <div>
+                    <h4>Atención al cliente</h4>
+                    <a href="#">Envíos y devoluciones</a>
+                    <a href="#">Métodos de pago</a>
+                    <a href="#">Preguntas frecuentes</a>
+                    <a href="#">Contacto</a>
+                </div>
+                <div>
+                    <h4>Legal</h4>
+                    <a href="#">Términos & Condiciones</a>
+                    <a href="#">Política de privacidad</a>
+                    <a href="#">Política de envíos</a>
+                </div>
+            </div>
+            <div
+                style="margin-top:18px;border-top:1px solid rgba(255,255,255,0.06);padding-top:14px;display:flex;justify-content:space-between;align-items:center">
+                <div>© Fraganza 2025 · Todos los derechos reservados</div>
+                <div class="small" style="color:rgba(255,255,255,0.85)">Diseño: Fraganza · Pagos seguros</div>
+            </div>
+        </footer>
+    </div>
+    <script>
+        const el = s => document.querySelector(s);
+
+        function actualizarContadorReservas() {
+            const reservas = JSON.parse(localStorage.getItem('fraganza_reservas')) || [];
+            const totalProductos = reservas.reduce((sum, p) => sum + p.cantidad, 0);
+            el('#reserva-count').textContent = totalProductos;
+        }
+
+        function toggleOffcanvas() {
+            const oc = el('#offcanvas');
+            if (oc.classList.contains('show')) {
+                oc.classList.remove('show');
+                setTimeout(() => {
+                    oc.style.display = 'none';
+                }, 300);
+            } else {
+                oc.style.display = 'block';
+                setTimeout(() => {
+                    oc.classList.add('show');
+                }, 10);
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const oc = el('#offcanvas');
+                if (oc.classList.contains('show')) {
+                    toggleOffcanvas();
+                }
+            }
+        });
+
+        el('#offcanvas').addEventListener('click', (e) => {
+            if (e.target === el('#offcanvas')) {
+                toggleOffcanvas();
+            }
+        });
+
+        actualizarContadorReservas();
+    </script>
+</body>
+
+</html>
