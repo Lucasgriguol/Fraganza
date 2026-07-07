@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="es">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -7,18 +8,23 @@
     <link rel="icon" type="image/png" href="F.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Playfair+Display:wght@400;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <meta name="description" content="Fraganza — Perfumería: Árabes, Diseñador, Decants y nuevas colecciones. Blanco y verde oscuro." />
+    <meta name="description"
+        content="Fraganza — Perfumería: Árabes, Diseñador, Decants y nuevas colecciones. Blanco y verde oscuro." />
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
 </head>
+
 <body>
     <div class="container">
         <div class="navbar-wrap">
             <div class="navbar">
                 <div style="display:flex;align-items:center;gap:12px">
-                    <button class="mobile-toggle icon-btn" aria-label="Abrir menú" onclick="toggleOffcanvas()">☰</button>
+                    <button class="mobile-toggle icon-btn" aria-label="Abrir menú"
+                        onclick="toggleOffcanvas()">☰</button>
                     <div class="brand">
                         <img class="logo" src="Logo.jpg" alt="">
                         <div>
@@ -36,7 +42,9 @@
                 </div>
                 <div class="nav-right">
                     <div class="reserva-indicator">
-                        <button class="icon-btn" aria-label="Ver reservas" onclick="window.location.href='reservas.html'">📋 <span class="reserva-count" id="reserva-count">0</span></button>
+                        <button class="icon-btn" aria-label="Ver reservas"
+                            onclick="window.location.href='reservas.html'">📋 <span class="reserva-count"
+                                id="reserva-count">0</span></button>
                     </div>
                 </div>
             </div>
@@ -65,11 +73,14 @@
             <section class="hero">
                 <div class="eyebrow">Colecciones destacadas</div>
                 <h2>Fraganza — aromas que cuentan historias</h2>
-                <p>Explorá aromas que evocan viajes, recuerdos y momentos. Desde la intensidad del oud hasta la frescura del jazmín, nuestra curaduría está pensada para quien busca identidad olfativa.</p>
+                <p>Explorá aromas que evocan viajes, recuerdos y momentos. Desde la intensidad del oud hasta la frescura
+                    del jazmín, nuestra curaduría está pensada para quien busca identidad olfativa.</p>
                 <div class="hero-actions">
                     <a class="nav-link" href="arabes.html">Explorar Árabes</a>
                     <a class="nav-link" href="disenador.html">Ver Diseñador</a>
-                    <button class="nav-cta" onclick="document.getElementById('decants').scrollIntoView({behavior:'smooth'})">🎁 20% OFF en Decants</button>
+                    <button class="nav-cta"
+                        onclick="document.getElementById('decants').scrollIntoView({behavior:'smooth'})">🎁 20% OFF en
+                        Decants</button>
                 </div>
             </section>
             <section style="margin-top:26px">
@@ -93,10 +104,9 @@
                     </a>
                 </div>
             </section>
-             <section id="decants" class="decants-section">
+            <section id="decants" class="decants-section">
                 <div class="section-header">
-                    <h3 class="section-title">Se viene el cambio de temporada... 👀 Muy pronto, una renovación total de stock para este invierno. ¡Mantente atento!</h3>
-                    <!--<h3 class="section-title">Decants Especiales</h3>
+                    <h3 class="section-title">Decants Especiales</h3>
                     <div class="discount-ribbon">⚡ 20% OFF EN Decants ⚡</div>
                 </div>
                 <div class="discount-banner">
@@ -107,9 +117,10 @@
             </section>
             <section id="catalogo" style="margin-top:32px">
                 <h3 style="color:var(--green-dark)">Mas buscados</h3>
-                <p class="small" style="margin-top:6px;color:rgba(4,47,38,0.45)">Seleccioná una fragancia para ver más detalles.</p>
+                <p class="small" style="margin-top:6px;color:rgba(4,47,38,0.45)">Seleccioná una fragancia para ver más
+                    detalles.</p>
                 <div class="grid" id="catalog-grid" style="margin-top:12px"></div>
-            </section> 
+            </section>
             <section style="margin-top:26px">
                 <h3 style="color:var(--green-dark)">Lo que dicen nuestros clientes</h3>
                 <div class="testimonials">
@@ -120,7 +131,8 @@
                             </div>
                             <div class="small" style="color:rgba(4,47,38,0.45)">Hace 2 meses</div>
                         </div>
-                        <p class="small" style="margin-top:10px;color:#164233">"Me preguntaron todo el día qué perfume usaba."</p>
+                        <p class="small" style="margin-top:10px;color:#164233">"Me preguntaron todo el día qué perfume
+                            usaba."</p>
                     </div>
                     <div class="testimonial">
                         <div style="display:flex;justify-content:space-between;align-items:center">
@@ -129,10 +141,11 @@
                             </div>
                             <div class="small" style="color:rgba(4,47,38,0.45)">Hace 1 mes</div>
                         </div>
-                        <p class="small" style="margin-top:10px;color:#164233">"Envío rápido y embalaje impecable. Compraría otra vez sin dudas."</p>
+                        <p class="small" style="margin-top:10px;color:#164233">"Envío rápido y embalaje impecable.
+                            Compraría otra vez sin dudas."</p>
                     </div>
                 </div>
-            </section>-->
+            </section>
         </main>
         <div class="backdrop" id="decant-backdrop">
             <div class="modal" role="dialog" aria-modal="true" id="decant-modal">
@@ -145,7 +158,8 @@
                     <div id="decant-modal-desc" style="color:#225241;margin-bottom:20px"></div>
                     <div id="decant-modal-notes" style="margin-bottom:20px"></div>
                     <div class="decant-prices" id="decant-prices-container"></div>
-                    <button class="btn-reservar" id="decant-reservar-btn" onclick="reservarDecantDesdeModal()">Reservar 5ml</button>
+                    <button class="btn-reservar" id="decant-reservar-btn" onclick="reservarDecantDesdeModal()">Reservar
+                        5ml</button>
                 </div>
             </div>
         </div>
@@ -156,10 +170,13 @@
                         <h3 id="m-name">Nombre</h3>
                         <button class="close" onclick="closeModal()">✕</button>
                     </div>
-                    <div id="m-art" style="width:100%;height:320px;border-radius:12px;margin-bottom:20px;display:flex;align-items:center;justify-content:center;overflow:hidden"></div>
+                    <div id="m-art"
+                        style="width:100%;height:320px;border-radius:12px;margin-bottom:20px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+                    </div>
                     <p id="m-desc" style="color:#225241;margin-bottom:20px"></p>
                     <ul id="m-notes" style="margin:0 0 20px;"></ul>
-                    <div style="margin:20px 0;font-size:24px;font-weight:900;color:var(--green-dark);" id="m-price"></div>
+                    <div style="margin:20px 0;font-size:24px;font-weight:900;color:var(--green-dark);" id="m-price">
+                    </div>
                     <div style="display:flex;gap:8px">
                         <button class="btn-reservar" onclick="reservarProducto()">Reservar ahora</button>
                         <button class="nav-link" onclick="closeModal()">Cerrar</button>
@@ -196,7 +213,8 @@
                     <a href="#">Política de envíos</a>
                 </div>
             </div>
-            <div style="margin-top:18px;border-top:1px solid rgba(255,255,255,0.06);padding-top:14px;display:flex;justify-content:space-between;align-items:center">
+            <div
+                style="margin-top:18px;border-top:1px solid rgba(255,255,255,0.06);padding-top:14px;display:flex;justify-content:space-between;align-items:center">
                 <div>© Fraganza 2025 · Todos los derechos reservados</div>
                 <div class="small" style="color:rgba(255,255,255,0.85)">Desarrollado por Dayenu Digital</div>
             </div>
@@ -774,4 +792,5 @@
         });
     </script>
 </body>
+
 </html>
